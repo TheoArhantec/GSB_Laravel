@@ -1,3 +1,4 @@
+{{-- toto --}}
 @extends("layouts/app")
 
 @section("title", "Accueil")

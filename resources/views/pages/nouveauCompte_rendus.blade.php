@@ -50,7 +50,7 @@
 							<select class="form-control" id="numPra" name="numPra"> 
 							@forelse($praticiens as $key => $praticien)
 
-								<option value="{{ $praticien->PRA_NUM}}">
+								<option value="{{ $praticien->id}}">
 					{{ $praticien->PRA_NOM}} {{ $praticien->PRA_PRENOM }}</option> 
 					@empty
 								<option>c'est vide</option>

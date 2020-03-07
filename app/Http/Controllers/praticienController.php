@@ -1,23 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\praticien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class praticienController extends Controller
 {
-    public function listePraticien(){
-        return view("pages/praticien", ["praticiens" => DB::table('praticien')
-            ->join('type_praticien', 'praticien.typ_code', '=', 'type_praticien.typ_code')
-            ->select('praticien.*', 'type_praticien.*')
-            ->get()]);
+
+
+
+    public function listePraticien(){  
+        return view("pages/praticien")->with('praticiens', $praticien = praticien::with('type_praticien')->get());
     }
     
     public function praticienParType(Request $request){
         $texte = $request->input('select');
         if ($texte == null){
-            $texte = $request ->input('input');
+            $texte = $request->input('input');
         }
         
         return view("pages/praticien", ["praticiens" => DB::table('praticien')

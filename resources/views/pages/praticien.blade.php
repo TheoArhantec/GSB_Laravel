@@ -27,8 +27,8 @@
 				<td>{{ $praticien->PRA_PRENOM }}</td>
 				<td>{{ $praticien->PRA_ADRESSE }}</td>
 				<td>{{ $praticien->PRA_VILLE }}</td>
-				<td>{{ $praticien->TYP_LIBELLE }}</td>
-				<td>{{ $praticien->TYP_LIEU }}</td>
+				<td>{{ $praticien->type_praticien->TYP_LIBELLE }}</td>
+				<td>{{ $praticien->type_praticien->TYP_LIEU }}</td>
 
 
 

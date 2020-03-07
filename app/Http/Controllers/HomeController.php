@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+use App\praticien;
+use App\rapport_visite;
 use Illuminate\Http\Request;
 use Facade\FlareClient\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -25,34 +28,37 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-
-        $data = [
-
-            'rapports' => DB::table('rapport_visite')
-            ->join('praticien', 'praticien.PRA_NUM', '=', 'rapport_visite.PRA_NUM')
-            ->select('rapport_visite.*','praticien.*')
-            ->where('Vis_matricule', '=' ,Auth::user()->matricule )
-            ->get(),
-
-        ];
-
-        return view('pages/home' , $data);
+    public function index(){
+       return $this->homeView();
     }
-    
-    
     
     public function homeView(){
-        $data = [
-        'rapports' => DB::table('rapport_visite')
-        ->join('praticien', 'praticien.PRA_NUM', '=', 'rapport_visite.PRA_NUM')
-        ->select('rapport_visite.*','praticien.*')
-        ->where('Vis_matricule', '=' ,Auth::user()->matricule )
-        ->get(),
+        return view('pages/home')->with('rapports',$rapports = $this->getRapport_Visite());
+    }
 
-        ];
-
-        return view('pages/home', $data);
+    public function getRapport_Visite(){
+        return rapport_visite::with('praticien')->where('ID_USER',Auth::user()->id)->get();
     }
 }
+
+    
+
+
+
+
+/*
+
+$var = rapport_visite::with('praticien')->where('ID_USER',Auth::user()->id)->get();
+
+Dans un fichier Blade
+
+@foreach ($var as $autreChose)
+    //Apres la première fleche tu rajotue le nom de la table praticien pour 
+    //préciser que les données viennent de là
+    $autreChose->praticien->champDansLaTableP¨raticien
+
+
+
+@endforeach
+
+*/

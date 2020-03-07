@@ -23,11 +23,13 @@
 			</tr>
 		</thead>
 		<tbody>
+	
+	
 		@foreach ($medics as $key => $medic)
 			<tr>
 				<td>{{ $medic->MED_DEPOTLEGAL }}</td>
 				<td>{{ $medic->MED_NOMCOMMERCIAL }}</td>
-				<td>{{ $medic->FAM_LIBELLE }}</td>
+				<td>{{ $medic->famille->FAM_CODE }}</td>
 				<td>{{ $medic->MED_COMPOSITION }}</td>
 				<td>{{ $medic->MED_EFFETS }}</td>
 				<td>{{ $medic->MED_CONTREINDIC }}</td>

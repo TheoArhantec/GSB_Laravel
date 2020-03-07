@@ -24,34 +24,30 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                      <th scope='row'>Matricule</th>
-                      <td height='40px'class='col-md-8 text-center '>{{ $user->VIS_MATRICULE }}</td>
-                    </tr>
                     <tr>
                       <th scope='row'>Nom</th>
-                      <td height='40px'class='col-md-8 text-center'>{{ $user->VIS_NOM }}</td>
+                      <td height='40px'class='col-md-8 text-center'>{{ $user->name }}</td>
                     </tr>
 
                     <tr>
                       <th scope='row'>Prénom</th>
-                      <td height='40px'class='col-md-8 text-center'>{{ $user->Vis_PRENOM }}</td>
+                      <td height='40px'class='col-md-8 text-center'>{{ $user->PRENOM }}</td>
                     </tr>
                     <tr>
                       <th scope='row'>Ville</th>
-                      <td height='40px'class='col-md-8 text-center'>{{ $user->VIS_VILLE }}</td>
+                      <td height='40px'class='col-md-8 text-center'>{{ $user->VILLE }}</td>
                     </tr>
                     <tr>
                       <th scope='row'>Adresse</th>
-                      <td height='40px'class='col-md-8 text-center'>{{ $user->VIS_ADRESSE }}</td>
+                      <td height='40px'class='col-md-8 text-center'>{{ $user->ADRESSE }}</td>
                     </tr>
                     <tr>
                       <th scope='row'>Cp</th>
-                    <td height='40px'class='col-md-8 text-center'>{{ $user->VIS_CP }}</td>
+                    <td height='40px'class='col-md-8 text-center'>{{ $user->CODE_POSTAL }}</td>
                     </tr>
                     <tr>
                       <th scope='row'>Date d'embauche</th>
-                    <td height='40px'class='col-md-8 text-center'>{{ $user->VIS_DATEEMBAUCHE }}</td>
+                    <td height='40px'class='col-md-8 text-center'>{{ $user->DATE_EMBAUCHE }}</td>
                     </tr>
                   </tbody>
                 </table>

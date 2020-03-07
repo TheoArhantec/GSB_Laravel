@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\medicament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class medicamentController extends Controller
 {
     public function listeMedicaments(){
-        return view("pages/medicament", ["medics" => DB::table('medicament')
-            ->join('famille', 'medicament.fam_code', '=', 'famille.fam_code')
-            ->select('medicament.*', 'famille.FAM_LIBELLE')
-            ->get()]);
+        return view("pages/medicament")->with('medics', medicament::with('famille')->get());
     }
 }
+
+

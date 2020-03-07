@@ -26,20 +26,21 @@
 			</tr>
 		</thead>
 		<tbody>
-@foreach ($visiteurs as $key => $visiteur)
-
+		
+@forelse ($visiteurs as $key => $visiteur)
 <tr>
-				<td >{{ $visiteur->VIS_NOM }}</td>
-				<td>{{ $visiteur->Vis_PRENOM }}</td>
-				<td>{{	$visiteur->VIS_CP }}</td>
-				<td>{{ $visiteur->VIS_ADRESSE }}</td>
-				<td>{{ $visiteur->VIS_VILLE }}</td>
-				<td>{{  $visiteur->SEC_CODE  }}</td>
-				<td>{{  $visiteur->LAB_NOM }}</td>
-				<td>{{  $visiteur->LAB_CHEFVENTE  }}</td>
+				<td >{{ $visiteur->name }}</td>
+				<td>{{ 	$visiteur->PRENOM }}</td>
+				<td>{{	$visiteur->CODE_POSTAL }}</td>
+				<td>{{ 	$visiteur->ADRESSE }}</td>
+				<td>{{ 	$visiteur->VILLE }}</td>
+				<td>{{  $visiteur->labo->LAB_CODE  }}</td>
+				<td>{{  $visiteur->labo->LAB_NOM }}</td>
+				<td>{{  $visiteur->labo->LAB_CHEF_VENTE  }}</td>
 			</tr>
-
- @endforeach
+@empty
+<a>Aucun Visiteur</a>
+ @endforelse
  
  	</tbody>
 	</table>

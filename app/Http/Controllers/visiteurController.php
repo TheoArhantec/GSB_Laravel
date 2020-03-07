@@ -1,32 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\praticien;
+use App\User;
 use App\visiteur;
-use Illuminate\Foundation\Auth\User;
+//use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use function foo\func;
 
-class visiteurController extends Controller
-{
-    public function listeVisiteur(){
+class visiteurController extends Controller{
     
-    $users = DB::table('visiteur')->get();
-    
- 
-    //return $users;
-    }
-    
-    public function getLogged(){
-      /*  $lesRapports  = rapport_visite::where('VIS_MATRICULE', $nomUser )->get(); */
-        
-        return view("pages/profil", ["UnUsers" => DB::table('visiteur')
-            ->select('visiteur.*')
-            ->where('visiteur.vis_matricule','=', Auth::user()->matricule )
-            ->get()]); 
+    public function getProfil(){
+        return view("pages/profil")->with(compact('UnUsers',$UnUsers =  User::where('id', Auth::user()->id)->get())); 
     }
     
     
@@ -38,6 +25,7 @@ class visiteurController extends Controller
      */
     public function updateProfil(Request $request){
         
+        //On recupere les données du formulaire//
         $newNom = $request->input('newNom');
         $newPrenom = $request->input('newPrenom');
         $NewCP = $request->input('newCp');
@@ -45,75 +33,42 @@ class visiteurController extends Controller
         $NewAdresse = $request->input('adresse');
         $NewMdp = $request->input("password");
 
-        /**Pour la table User */
+        //On récupere l'id de l'user //
         $user = User::find(Auth::user()->id);
 
+        //Mise à jour de son profil//
+        if($NewCP){
+        $user->CODE_POSTAL = $NewCP;
+        }
+        if($NewAdresse){ 
+        $user->ADRESSE = $NewAdresse;
+        }
+        if($NewVille){
+        $user->VILLE = $NewVille;
+        }
+        if($newPrenom){
+        $user->PRENOM = $newPrenom;
+        }
+        if($newNom){
         $user->name = $newNom;
+        }
+        if($NewMdp){
         $user->password = Hash::make($NewMdp);
+        }
         $user->save();
         
-        /**Pour la table visiteur */
-        DB::table('visiteur')
-        ->where('visiteur.vis_matricule','=', Auth::user()->matricule)
-        ->update(['VIS_NOM' => $newNom , 'VIS_PRENOM' => $newPrenom,'VIS_CP' => $NewCP, 'VIS_VILLE' => $NewVille, 'VIS_ADRESSE' => $NewAdresse]);
-    
-
-     
+       //Si le mot de passe est modifié on deconnecte l'user 
+       if ($NewMdp){
         Auth::logout();
+       }
         return redirect() -> route('login');
-      
-    }
-    
-    
-       
-    
-    
-public function connexion() {
-    return view("pages/connexion", ["lesUsers" => DB::table('visiteur')
-        ->select('visiteur.*')
-         ->get()]); 
     }
 
 public function listeVisiteurAvecLabo(){
-    return view("pages/visiteur", ["visiteurs" => DB::table('visiteur')
-        ->join('labo', 'visiteur.Lab_code', '=', 'labo.lab_code')
-        ->select('visiteur.*', 'labo.*')
-        ->get()]); 
-    }
-    
-    
-    public function profil(){
-        return view("pages/profil");
-    }
-    
-    /**
-     * permet d'ajouter les visiteur dans la table Users pour gerer les connections
-     */
-    public function test() {
-        $lesUsers = DB::table('visiteur') -> get();
-        
-        $userTable = DB::table('users') -> get();
-        
-        foreach ($lesUsers as $unUser) {
-            echo  $unUser->VIS_NOM." ";
-            echo  $unUser->VIS_MATRICULE." ";
-            echo $unUser->VIS_DATEEMBAUCHE."<br>";
-            
-            $matricule = $unUser->VIS_MATRICULE;
-            $name =  $unUser->VIS_NOM;
-            $password = $unUser->VIS_DATEEMBAUCHE;
-            
-            DB::table('users')->insert([
-                ['matricule'=>$matricule,'name' => $name, 'email' => null, 'password' => Hash::make($password)]
-            ]);
-            
-        }
-        
-    }
-    
-    
-    
-    
-    
-    
+    return view("pages/visiteur")->with(compact('visiteurs',$visiteurs = User::with('labo')->get()));
 }
+  
+
+}
+
+

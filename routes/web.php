@@ -24,17 +24,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 /**
  * Groupe de route qui permet
- * l'affichage toutes les pages principaux
+ * l'affichage toutes les pages 
  */
-Route::get('/visiteur', "visiteurController@listeVisiteurAvecLabo")->name("gsb.visiteur");
+Route::get('/visiteur', "visiteurController@listeVisiteurAvecLabo")->name("gsb.visiteur")->middleware('auth');
 Route::get('/medicament',"medicamentController@listeMedicaments")->name("gsb.medicament");
 Route::get('/praticien',"praticienController@listePraticien")-> name("gsb.practicien");
-Route::get('/profil',"visiteurController@getLogged")->name("gsb.modif");
+Route::get('/profil',"visiteurController@getProfil")->name("gsb.modif");
 Route::get('/compte_rendus', "rapport_visiteController@listeCompteRendus")->name("gsb.compte_rendus");
 Route::get('/compte_rendus/new',"rapport_visiteController@newCompteRendus")->name("gsb.newCompteRendus");
 
 /**
- * Route qui reherche les practicien par type/ville/nom
+ * Route qui recherche les practiciens par type/ville/nom
  */
 Route::post('/praticien',"praticienController@praticienParType")->name('gsb.practype');
 

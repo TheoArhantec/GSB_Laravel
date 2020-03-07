@@ -22,10 +22,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($rapports as $rapport)
+                                      
+                                        @forelse($rapports as $rapport)
                                             <tr>
-                                                <td>{{ $rapport->RAP_NUM }}</td>
-                                                <td>{{ $rapport->PRA_PRENOM }}</td>
+                                                <td>{{ $rapport->id }}</td>
+    
+                                                <td>{{ $rapport->praticien->PRA_NOM }}</td>
+                                            
                                                 <td>{{ $rapport->RAP_DATE }}</td>
                                                 <td>{{ $rapport->RAP_MOTIF }}</td>
                                                 <td>{{ $rapport->RAP_BILAN }}</td>
@@ -34,13 +37,15 @@
 									<form method="get" action="{{ route('gsb.pdf') }}">
 										@csrf
 										<button type="submit" name="nb"
-											value="{{ $rapport->RAP_NUM }}"
+											value="{{ $rapport->id }}"
 											class="btn btn-outline-danger">PDF</button>
 
 									</form></td>
                                                 
                                             </tr>
-                                        @endforeach
+                                            @empty
+                                            <a>Aucun Rapport</a>
+                                        @endforelse
                                             <tbody>
                                         </table>
                                     </div>

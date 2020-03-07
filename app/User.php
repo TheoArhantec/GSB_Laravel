@@ -15,9 +15,30 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
+    
+   
+     public $table = "users";
+      protected $primaryKey = "id";
+
+      public $fillable = [
+        'id',
+        'name',
+        'email',
+        'PRENOM',
+        'ADRESSE',
+        'CODE_POSTAL',
+        'VILLE',
+        'DATE_EMBAUCHE',
+        'LAB_CODE'
     ];
+  
+     
+  
+      public function labo()
+      {
+          return $this->belongsTo('App\labo','LAB_CODE');
+      }
+
 
     /**
      * The attributes that should be hidden for arrays.

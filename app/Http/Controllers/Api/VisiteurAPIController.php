@@ -16,5 +16,18 @@ class VisiteurAPIController extends Controller
     {
         return User::all();
     }
+
+    /**
+     * Request with a visiteur name 
+     */
+    public function show(String  $nom)
+    {
+        foreach(User::all() as $unUser) {
+            if ($unUser->name == $nom) {
+                $user = $unUser;
+            }
+        }
+        return $user;
+    }
    
 }

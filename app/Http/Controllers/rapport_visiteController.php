@@ -30,7 +30,7 @@ class rapport_visiteController extends Controller
  * Affiche tout les contreRendus de la personne connecté
  * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
  */
-public function newCompteRendus(){
+    public function newCompteRendus(){
     $data =  [
         'medics' => medicament::with('famille')->get(),
         'praticiens' => praticien::all(),];

@@ -16,7 +16,6 @@ class visiteurController extends Controller{
         return view("pages/profil")->with(compact('UnUsers',$UnUsers =  User::where('id', Auth::user()->id)->get())); 
     }
     
-    
     /**
      * Permet de mettre à jour les informations personnelles de la personne connectée
      * hormis sa date d'embauche et son matricule

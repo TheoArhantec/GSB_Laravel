@@ -15,12 +15,12 @@ class CreateMedicamentTable extends Migration
     {
         Schema::create('medicament', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('MED_DEPOTLEGAL');
-            $table->string('MED_NOMCOMMERCIAL');
-            $table->string('MED_COMPOSITION');
-            $table->string('MED_EFFETS');
-            $table->string('MED_CONTREINDIC');
-            $table->string('MED_PRIXECHANTILLON')->nullable();
+            $table->text('MED_DEPOTLEGAL');
+            $table->text('MED_NOMCOMMERCIAL');
+            $table->text('MED_COMPOSITION');
+            $table->text('MED_EFFETS');
+            $table->text('MED_CONTREINDIC');
+            $table->text('MED_PRIXECHANTILLON')->nullable();
             $table->integer('MED_PRIX_BOITE')->nullable();
             $table->unsignedBigInteger('ID_FAM_CODE')->nullable();
             $table->unsignedBigInteger('ID_TYPE_BOITE')->nullable();

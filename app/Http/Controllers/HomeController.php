@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 use App\praticien;
 use App\rapport_visite;
+use App\User;   
 use Illuminate\Http\Request;
 use Facade\FlareClient\View;
 use Illuminate\Database\Eloquent\Model;
@@ -29,8 +30,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-       return $this->homeView();
-    }
+      
+     }
     
     public function homeView(){
         return view('pages/home')->with('rapports',$rapports = $this->getRapport_Visite());

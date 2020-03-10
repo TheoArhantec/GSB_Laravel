@@ -3,8 +3,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\User;
 
 class VisiteurAPIController extends Controller
 {
@@ -15,7 +16,9 @@ class VisiteurAPIController extends Controller
      */
     public function index()
     {
-        return User::all();
+        dd(auth::user());
+        return User::where('id',Auth::user()->id);
+       // return User::all();
     }
 
     /**

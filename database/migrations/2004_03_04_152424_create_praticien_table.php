@@ -15,7 +15,7 @@ class CreatePraticienTable extends Migration
     {
         Schema::create('praticien', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('PRA_NOM',50);
+                $table->string('PRA_NOM',50)->unique();
             $table->string('PRA_PRENOM',50);
             $table->string('PRA_ADRESSE',50);
             $table->string('PRA_CP',50);
@@ -59,7 +59,7 @@ class CreatePraticienTable extends Migration
             ['PRA_NOM' => 'Lefebvre', 'PRA_PRENOM' => 'Frédéric' , 'PRA_ADRESSE' => '2 pl Wurzburg' , 'PRA_CP' => '55000' , 'PRA_VILLE' =>'VERDUN', 'PRA_COEFNOTORIETE' => '573,63' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Lemée', 'PRA_PRENOM' => 'Frédéric' , 'PRA_ADRESSE' => '29 av 6 Juin' , 'PRA_CP' => '56000' , 'PRA_VILLE' =>'VANNES', 'PRA_COEFNOTORIETE' => '326,4' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Martin', 'PRA_PRENOM' => 'Frédéric' , 'PRA_ADRESSE' => 'Bât A 90 r Bayeux' , 'PRA_CP' => '70000' , 'PRA_VILLE' =>'VESOUL', 'PRA_COEFNOTORIETE' => '506,06' ,'TYP_CODE'=> '3' ,],
-            ['PRA_NOM' => 'Marie', 'PRA_PRENOM' => 'Frédérique' , 'PRA_ADRESSE' => '172 r Caponière' , 'PRA_CP' => '70000' , 'PRA_VILLE' =>'VESOUL', 'PRA_COEFNOTORIETE' => '313,31' ,'TYP_CODE'=> '4' ,],
+            ['PRA_NOM' => 'Marie1', 'PRA_PRENOM' => 'Frédérique' , 'PRA_ADRESSE' => '172 r Caponière' , 'PRA_CP' => '70000' , 'PRA_VILLE' =>'VESOUL', 'PRA_COEFNOTORIETE' => '313,31' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Rosenstech', 'PRA_PRENOM' => 'Geneviève' , 'PRA_ADRESSE' => '27 r Auvergne' , 'PRA_CP' => '75000' , 'PRA_VILLE' =>'PARIS', 'PRA_COEFNOTORIETE' => '366,82' ,'TYP_CODE'=> '1' ,],
             ['PRA_NOM' => 'Pontavice', 'PRA_PRENOM' => 'Ghislaine' , 'PRA_ADRESSE' => '8 r Gaillon' , 'PRA_CP' => '86000' , 'PRA_VILLE' =>'POITIERS', 'PRA_COEFNOTORIETE' => '265,58' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Leveneur-Mosquet', 'PRA_PRENOM' => 'Guillaume' , 'PRA_ADRESSE' => '47 av Robert Schuman' , 'PRA_CP' => '64000' , 'PRA_VILLE' =>'PAU', 'PRA_COEFNOTORIETE' => '184,97' ,'TYP_CODE'=> '5' ,],
@@ -67,7 +67,7 @@ class CreatePraticienTable extends Migration
             ['PRA_NOM' => 'Leveneur', 'PRA_PRENOM' => 'Hugues' , 'PRA_ADRESSE' => '7 pl St Gilles' , 'PRA_CP' => '62000' , 'PRA_VILLE' =>'ARRAS', 'PRA_COEFNOTORIETE' => '7,39' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Mosquet', 'PRA_PRENOM' => 'Isabelle' , 'PRA_ADRESSE' => '22 r Jules Verne' , 'PRA_CP' => '76000' , 'PRA_VILLE' =>'ROUEN', 'PRA_COEFNOTORIETE' => '77,1' ,'TYP_CODE'=> '1' ,],
             ['PRA_NOM' => 'Giraudon', 'PRA_PRENOM' => 'Jean-Christophe' , 'PRA_ADRESSE' => '1 r Albert de Mun' , 'PRA_CP' => '38100' , 'PRA_VILLE' =>'VIENNE', 'PRA_COEFNOTORIETE' => '92,62' ,'TYP_CODE'=> '2' ,],
-            ['PRA_NOM' => 'Marie', 'PRA_PRENOM' => 'Jean-Claude' , 'PRA_ADRESSE' => '26 r Hérouville' , 'PRA_CP' => '69000' , 'PRA_VILLE' =>'LYON', 'PRA_COEFNOTORIETE' => '120,1' ,'TYP_CODE'=> '5' ,],
+            ['PRA_NOM' => 'Marie2', 'PRA_PRENOM' => 'Jean-Claude' , 'PRA_ADRESSE' => '26 r Hérouville' , 'PRA_CP' => '69000' , 'PRA_VILLE' =>'LYON', 'PRA_COEFNOTORIETE' => '120,1' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Maury', 'PRA_PRENOM' => 'Jean-François' , 'PRA_ADRESSE' => '5 r Pierre Girard' , 'PRA_CP' => '71000' , 'PRA_VILLE' =>'CHALON SUR SAONE', 'PRA_COEFNOTORIETE' => '13,73' ,'TYP_CODE'=> '3' ,],
             ['PRA_NOM' => 'Dennel', 'PRA_PRENOM' => 'Jean-Louis' , 'PRA_ADRESSE' => '7 pl St Gilles' , 'PRA_CP' => '28000' , 'PRA_VILLE' =>'CHARTRES', 'PRA_COEFNOTORIETE' => '550,69' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Ain', 'PRA_PRENOM' => 'Jean-Pierre' , 'PRA_ADRESSE' => '4 résid Olympia' , 'PRA_CP' => '2000' , 'PRA_VILLE' =>'LAON', 'PRA_COEFNOTORIETE' => '5,59' ,'TYP_CODE'=> '1' ,],

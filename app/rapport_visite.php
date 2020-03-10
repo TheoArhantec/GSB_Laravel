@@ -15,6 +15,12 @@ class rapport_visite extends Model
     public function praticien()
     {
        // return $this->belongsToMany(praticien::class);
-       return $this->belongsTo('App\praticien','id');
+       return $this->belongsTo('App\praticien','ID_PRATICIEN');
+    }
+
+    public function user()
+    {
+       // return $this->belongsToMany(praticien::class);
+       return $this->belongsTo('App\User','ID_USER');
     }
 }

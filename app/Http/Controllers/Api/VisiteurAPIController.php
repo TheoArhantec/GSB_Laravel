@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class VisiteurAPIController extends Controller
 {
@@ -22,9 +23,11 @@ class VisiteurAPIController extends Controller
      */
     public function show(String  $nom)
     {
+        $user = [];
+
         foreach(User::all() as $unUser) {
             if ($unUser->name == $nom) {
-                $user = $unUser;
+                array_push($user,$unUser);
             }
         }
         return $user;

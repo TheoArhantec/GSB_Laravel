@@ -15,7 +15,7 @@ class CreatePraticienTable extends Migration
     {
         Schema::create('praticien', function (Blueprint $table) {
             $table->bigIncrements('id');
-                $table->string('PRA_NOM',50)->unique();
+            $table->string('PRA_NOM',50)->unique();
             $table->string('PRA_PRENOM',50);
             $table->string('PRA_ADRESSE',50);
             $table->string('PRA_CP',50);
@@ -76,16 +76,16 @@ class CreatePraticienTable extends Migration
             ['PRA_NOM' => 'Desfaudais', 'PRA_PRENOM' => 'Jean-Pierre' , 'PRA_ADRESSE' => '7 pl St Gilles' , 'PRA_CP' => '29000' , 'PRA_VILLE' =>'BREST', 'PRA_COEFNOTORIETE' => '71,76' ,'TYP_CODE'=> '3' ,],
             ['PRA_NOM' => 'Phan', 'PRA_PRENOM' => 'JérÃ´me' , 'PRA_ADRESSE' => '9 r Clos Caillet' , 'PRA_CP' => '79000' , 'PRA_VILLE' =>'NIORT', 'PRA_COEFNOTORIETE' => '451,61' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Riou', 'PRA_PRENOM' => 'Line' , 'PRA_ADRESSE' => '43 bd Gén Vanier' , 'PRA_CP' => '77000' , 'PRA_VILLE' =>'MARNE LA VALLEE', 'PRA_COEFNOTORIETE' => '193,25' ,'TYP_CODE'=> '1' ,],
-            ['PRA_NOM' => 'Chubilleau', 'PRA_PRENOM' => 'Louis' , 'PRA_ADRESSE' => '46 r Eglise' , 'PRA_CP' => '17000' , 'PRA_VILLE' =>'SAINTES', 'PRA_COEFNOTORIETE' => '202,07' ,'TYP_CODE'=> '2' ,],
+            ['PRA_NOM' => 'Chubilleau1', 'PRA_PRENOM' => 'Louis' , 'PRA_ADRESSE' => '46 r Eglise' , 'PRA_CP' => '17000' , 'PRA_VILLE' =>'SAINTES', 'PRA_COEFNOTORIETE' => '202,07' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Lebrun', 'PRA_PRENOM' => 'Lucette' , 'PRA_ADRESSE' => '178 r Auge' , 'PRA_CP' => '54000' , 'PRA_VILLE' =>'NANCY', 'PRA_COEFNOTORIETE' => '410,41' ,'TYP_CODE'=> '5' ,],
-            ['PRA_NOM' => 'Goessens', 'PRA_PRENOM' => 'Marc' , 'PRA_ADRESSE' => '6 av 6 Juin' , 'PRA_CP' => '39000' , 'PRA_VILLE' =>'DOLE', 'PRA_COEFNOTORIETE' => '548,57' ,'TYP_CODE'=> '3' ,],
+            ['PRA_NOM' => 'Goessens2', 'PRA_PRENOM' => 'Marc' , 'PRA_ADRESSE' => '6 av 6 Juin' , 'PRA_CP' => '39000' , 'PRA_VILLE' =>'DOLE', 'PRA_COEFNOTORIETE' => '548,57' ,'TYP_CODE'=> '3' ,],
             ['PRA_NOM' => 'Laforge', 'PRA_PRENOM' => 'Marc' , 'PRA_ADRESSE' => '5 résid Prairie' , 'PRA_CP' => '50000' , 'PRA_VILLE' =>'SAINT LO', 'PRA_COEFNOTORIETE' => '265,05' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Millereau', 'PRA_PRENOM' => 'Marc' , 'PRA_ADRESSE' => '36 av 6 Juin' , 'PRA_CP' => '72000' , 'PRA_VILLE' =>'LA FERTE BERNARD', 'PRA_COEFNOTORIETE' => '430,42' ,'TYP_CODE'=> '1' ,],
             ['PRA_NOM' => 'Dauverne', 'PRA_PRENOM' => 'Marie-Christine' , 'PRA_ADRESSE' => '69 av Charlemagne' , 'PRA_CP' => '21000' , 'PRA_VILLE' =>'DIJON', 'PRA_COEFNOTORIETE' => '281,05' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Vittorio', 'PRA_PRENOM' => 'Myriam' , 'PRA_ADRESSE' => '3 pl Champlain' , 'PRA_CP' => '94000' , 'PRA_VILLE' =>'BOISSY SAINT LEGER', 'PRA_COEFNOTORIETE' => '356,23' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Lapasset', 'PRA_PRENOM' => 'Nhieu' , 'PRA_ADRESSE' => '31 av 6 Juin' , 'PRA_CP' => '52000' , 'PRA_VILLE' =>'CHAUMONT', 'PRA_COEFNOTORIETE' => '107' ,'TYP_CODE'=> '3' ,],
             ['PRA_NOM' => 'Plantet-Besnier', 'PRA_PRENOM' => 'Nicole' , 'PRA_ADRESSE' => '10 av 1ère Armée Française' , 'PRA_CP' => '86000' , 'PRA_VILLE' =>'CHATELLEREAULT', 'PRA_COEFNOTORIETE' => '369,94' ,'TYP_CODE'=> '4' ,],
-            ['PRA_NOM' => 'Chubilleau', 'PRA_PRENOM' => 'Pascal' , 'PRA_ADRESSE' => '3 r Hastings' , 'PRA_CP' => '15000' , 'PRA_VILLE' =>'AURRILLAC', 'PRA_COEFNOTORIETE' => '290,75' ,'TYP_CODE'=> '1' ,],
+            ['PRA_NOM' => 'Chubilleau2', 'PRA_PRENOM' => 'Pascal' , 'PRA_ADRESSE' => '3 r Hastings' , 'PRA_CP' => '15000' , 'PRA_VILLE' =>'AURRILLAC', 'PRA_COEFNOTORIETE' => '290,75' ,'TYP_CODE'=> '1' ,],
             ['PRA_NOM' => 'Robert', 'PRA_PRENOM' => 'Pascal' , 'PRA_ADRESSE' => '31 r St Jean' , 'PRA_CP' => '93000' , 'PRA_VILLE' =>'BOBIGNY', 'PRA_COEFNOTORIETE' => '162,41' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Jean', 'PRA_PRENOM' => 'Pascale' , 'PRA_ADRESSE' => '114 r Authie' , 'PRA_CP' => '49100' , 'PRA_VILLE' =>'SAUMUR', 'PRA_COEFNOTORIETE' => '375,52' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Chanteloube', 'PRA_PRENOM' => 'Patrice' , 'PRA_ADRESSE' => '14 av Thiès' , 'PRA_CP' => '13000' , 'PRA_VILLE' =>'MARSEILLE', 'PRA_COEFNOTORIETE' => '478,01' ,'TYP_CODE'=> '3' ,],
@@ -99,14 +99,14 @@ class CreatePraticienTable extends Migration
             ['PRA_NOM' => 'Linard', 'PRA_PRENOM' => 'Philippe' , 'PRA_ADRESSE' => '1 r Albert de Mun' , 'PRA_CP' => '81000' , 'PRA_VILLE' =>'ALBI', 'PRA_COEFNOTORIETE' => '486,3' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Lozier', 'PRA_PRENOM' => 'Philippe' , 'PRA_ADRESSE' => '8 r Gaillon' , 'PRA_CP' => '31000' , 'PRA_VILLE' =>'TOULOUSE', 'PRA_COEFNOTORIETE' => '48,4' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Dechâtre', 'PRA_PRENOM' => 'Pierre' , 'PRA_ADRESSE' => '63 av Thiès' , 'PRA_CP' => '23000' , 'PRA_VILLE' =>'MONTLUCON', 'PRA_COEFNOTORIETE' => '253,75' ,'TYP_CODE'=> '3' ,],
-            ['PRA_NOM' => 'Goessens', 'PRA_PRENOM' => 'Pierre' , 'PRA_ADRESSE' => '22 r Jean Romain' , 'PRA_CP' => '40000' , 'PRA_VILLE' =>'MONT DE MARSAN', 'PRA_COEFNOTORIETE' => '426,19' ,'TYP_CODE'=> '4' ,],
+            ['PRA_NOM' => 'Goessens1', 'PRA_PRENOM' => 'Pierre' , 'PRA_ADRESSE' => '22 r Jean Romain' , 'PRA_CP' => '40000' , 'PRA_VILLE' =>'MONT DE MARSAN', 'PRA_COEFNOTORIETE' => '426,19' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Leménager', 'PRA_PRENOM' => 'Pierre' , 'PRA_ADRESSE' => '39 av 6 Juin' , 'PRA_CP' => '57000' , 'PRA_VILLE' =>'METZ', 'PRA_COEFNOTORIETE' => '118,7' ,'TYP_CODE'=> '1' ,],
             ['PRA_NOM' => 'Née', 'PRA_PRENOM' => 'Pierre' , 'PRA_ADRESSE' => '39 av 6 Juin' , 'PRA_CP' => '82000' , 'PRA_VILLE' =>'MONTAUBAN', 'PRA_COEFNOTORIETE' => '72,54' ,'TYP_CODE'=> '2' ,],
-            ['PRA_NOM' => 'Guyot', 'PRA_PRENOM' => 'Pierre-Laurent' , 'PRA_ADRESSE' => '43 bd Gén Vanier' , 'PRA_CP' => '48000' , 'PRA_VILLE' =>'MENDE', 'PRA_COEFNOTORIETE' => '352,31' ,'TYP_CODE'=> '5' ,],
+            ['PRA_NOM' => 'Guyot1', 'PRA_PRENOM' => 'Pierre-Laurent' , 'PRA_ADRESSE' => '43 bd Gén Vanier' , 'PRA_CP' => '48000' , 'PRA_VILLE' =>'MENDE', 'PRA_COEFNOTORIETE' => '352,31' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Chauchard', 'PRA_PRENOM' => 'Roger' , 'PRA_ADRESSE' => '9 r Vaucelles' , 'PRA_CP' => '13000' , 'PRA_VILLE' =>'MARSEILLE', 'PRA_COEFNOTORIETE' => '552,19' ,'TYP_CODE'=> '3' ,],
             ['PRA_NOM' => 'Mabire', 'PRA_PRENOM' => 'Roland' , 'PRA_ADRESSE' => '11 r Boutiques' , 'PRA_CP' => '67000' , 'PRA_VILLE' =>'STRASBOURG', 'PRA_COEFNOTORIETE' => '422,39' ,'TYP_CODE'=> '4' ,],
             ['PRA_NOM' => 'Leroy', 'PRA_PRENOM' => 'Soazig' , 'PRA_ADRESSE' => '45 r Boutiques' , 'PRA_CP' => '61000' , 'PRA_VILLE' =>'ALENCON', 'PRA_COEFNOTORIETE' => '570,67' ,'TYP_CODE'=> '1' ,],
-            ['PRA_NOM' => 'Guyot', 'PRA_PRENOM' => 'Stéphane' , 'PRA_ADRESSE' => '26 r Hérouville' , 'PRA_CP' => '46000' , 'PRA_VILLE' =>'FIGEAC', 'PRA_COEFNOTORIETE' => '28,85' ,'TYP_CODE'=> '2' ,],
+            ['PRA_NOM' => 'Guyot2', 'PRA_PRENOM' => 'Stéphane' , 'PRA_ADRESSE' => '26 r Hérouville' , 'PRA_CP' => '46000' , 'PRA_VILLE' =>'FIGEAC', 'PRA_COEFNOTORIETE' => '28,85' ,'TYP_CODE'=> '2' ,],
             ['PRA_NOM' => 'Delposen', 'PRA_PRENOM' => 'Sylvain' , 'PRA_ADRESSE' => '39 av 6 Juin' , 'PRA_CP' => '27000' , 'PRA_VILLE' =>'DREUX', 'PRA_COEFNOTORIETE' => '292,01' ,'TYP_CODE'=> '5' ,],
             ['PRA_NOM' => 'Rault', 'PRA_PRENOM' => 'Sylvie' , 'PRA_ADRESSE' => '15 bd Richemond' , 'PRA_CP' => '2000' , 'PRA_VILLE' =>'SOISSON', 'PRA_COEFNOTORIETE' => '526,6' ,'TYP_CODE'=> '3' ,],
             ['PRA_NOM' => 'Renouf', 'PRA_PRENOM' => 'Sylvie' , 'PRA_ADRESSE' => '98 bd Mar Lyautey' , 'PRA_CP' => '88000' , 'PRA_VILLE' =>'EPINAL', 'PRA_COEFNOTORIETE' => '425,24' ,'TYP_CODE'=> '4' ,],          

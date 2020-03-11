@@ -19,11 +19,18 @@ class medicament extends Model
         'MED_EFFETS' ,
         'MED_CONTREINDIC' ,
         'MED_PRIXECHANTILLON',
+        'ID_TYPE_BOITE',
     ];
 
     public function famille()
     {
         return $this->belongsTo('App\famille' ,'ID_FAM_CODE');
+    }
+
+
+    public function boite_medicament()
+    {
+        return $this->belongsTo('App\boite_medicament' ,'ID_TYPE_BOITE');
     }
 
     public function offrir(){

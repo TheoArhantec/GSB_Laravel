@@ -40,6 +40,11 @@ class User extends Authenticatable
       }
 
 
+      public function rapport_visite()
+      {
+          return $this->hasMany('ID_USER');
+      }
+
     /**
      * The attributes that should be hidden for arrays.
      *

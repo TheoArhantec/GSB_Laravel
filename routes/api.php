@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,12 +15,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::resource('visiteur','VisiteurController');
+Route::resource('commande','commandeController');
+
+Route::middleware('auth:web')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+/*
 //      /api/visiteur
 Route::namespace('Api')->group(function() {
     Route::apiResource('visiteur', 'VisiteurAPIController');
 });
+*/
+
+        

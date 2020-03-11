@@ -3,9 +3,13 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\praticien;
+use App\User;
+use App\visiteur;
+use App\rapport_visite;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\User;
+
 
 class VisiteurAPIController extends Controller
 {

@@ -61,7 +61,7 @@
 						<div class="form-group">
 
 							<label for="Date" class="text-black"> Date rapport : </label> <input
-								type="date" class="form-control" id="date" name="date" required />
+								type="date" id ="datepicker_id" class="form-control" id="date" name="date" required />
 						</div>
 
 						<div class="form-group">
@@ -320,6 +320,25 @@
     
     }
 
+
+
+
+</script>
+<script>
+var d = new Date();
+var month = d.getMonth();
+var month_actual = month + 1;
+
+if (month_actual < 10) {
+  month_actual = "0"+month_actual; 
+  }
+
+var day_val = d.getDate();
+if (day_val < 10) {
+  day_val = "0"+day_val; 
+  }
+
+document.getElementById("datepicker_id").value = d.getFullYear()+"-"+ month_actual +"-"+day_val;
 
 
 

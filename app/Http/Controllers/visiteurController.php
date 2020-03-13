@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Api\VisiteurAPIController;
 
 class visiteurController extends Controller{
 
@@ -18,6 +19,7 @@ class visiteurController extends Controller{
     public function __construct()
     {
         $this->middleware('auth');
+        
     
        
     }
@@ -76,6 +78,23 @@ class visiteurController extends Controller{
     public function listeVisiteurAvecLabo(){
     return view("pages/visiteur")->with(compact('visiteurs',$visiteurs = User::with('labo')->get()));
 }
+
+    public function SelectVisiteur(){
+        $data = ['visiteurs' => user::all(),];
+        return view('Api/visiteurAPI',$data  );
+    }
+
+
+
+    public function getApiResult(Request $request){
+        $nomVisiteur = $request->input('visiteurAPI');
+        $result = VisiteurAPIController::show($nomVisiteur);
+        $data = ['visiteurs' => user::all(),
+                 'result' => $result,
+                 'name'  => $nomVisiteur,];
+
+       return view('Api/visiteurAPI', $data);
+    }
 
 
  

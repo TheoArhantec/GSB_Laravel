@@ -46,15 +46,18 @@ class VisiteurAPIController extends Controller
           
             //  Requete qui permet de recuperer les informations sur chaque praticien 
             $data = rapport_visite::with(['praticien','user'])->where('ID_USER',$id_Visiteur->id)->get(); 
-            //  Boucle qui permet les données de chaque praticiens concernant me visiteur
+            //Tableau pour filtrer les doublons
             $doublon = array();
-            foreach($data as $key => $object){
+            //Compteur du tableau
+            $i = 0;
+            foreach($data as $object){
                 if(!(in_array($object->praticien->PRA_NOM,$doublon))){
-                $tableau[$key]['Nom_Praticien'] =  $object->praticien->PRA_NOM;
-                $tableau[$key]['Prenom_Praticien'] =  $object->praticien->PRA_PRENOM;
-                $tableau[$key]['Nom_visiteur'] =  $object->User->name;
-                $tableau[$key]['Prenom_visiteur'] = $object->User->PRENOM;
-                array_push($doublon,$object->praticien->PRA_NOM );
+                $tableau[$i]['Nom_Praticien'] =  $object->praticien->PRA_NOM;
+                $tableau[$i]['Prenom_Praticien'] =  $object->praticien->PRA_PRENOM;
+                $tableau[$i]['Nom_visiteur'] =  $object->User->name;
+                $tableau[$i]['Prenom_visiteur'] = $object->User->PRENOM;
+                array_push($doublon,$object->praticien->PRA_NOM ); // On stock les praticien déjà rentrer dans la $var doublon
+                $i++;
                 }
             }
             //  On retourne le Tableau une fois la boucle terminée

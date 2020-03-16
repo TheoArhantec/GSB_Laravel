@@ -13,9 +13,8 @@ use App\offrir;
 class CommandeAPIController extends Controller
 {
   function index(){
-
-
-    return $nom;
+    $data = ['praticiens' => praticien::all(),];
+    return view('Api/commandeApi',$data  );
   }
 
 /**
@@ -25,17 +24,15 @@ class CommandeAPIController extends Controller
     //  Requete qui permet de recuperer l'id du praticien a partir de son nom
     $id_Praticien = praticien::where('PRA_NOM', $nom)->first(); 
     if ($id_Praticien == null){
-      return response()->json(['error'=> 'Le praticien n\'existe pas.'],415);
+          return response()->json(['error'=> 'Le praticien n\'existe pas.'],415);
     }
     //  Requete pour obtenir la liste des rapports oû le praticien est présent
     $liste_rapport = rapport_visite::select('id')->where('ID_PRATICIEN', '=',$id_Praticien->id)->get();
-
-  
     //  Boucle Rapide qui recupere l'id de chaque rapport
     $liste_rapport_id = array();
     foreach($liste_rapport as $key => $uneListe){
         array_push($liste_rapport_id ,$uneListe->id);
-    }
+      }
     if (count($liste_rapport_id) <= 0){
       return response()->json(['error'=> 'Aucun rapport effectué.'],435);
     }
@@ -47,8 +44,8 @@ class CommandeAPIController extends Controller
 
    
     //  On appel la fonction TrieArray() pour trier les medicaments
-     $liste_medicament_trier = $this->TrieArray($liste_medicament_id); 
-     $liste_medicament_trier = $this->getNbBoiteParMedoc($liste_medicament_trier);
+     $liste_medicament_trier = $this->TrieArray($liste_medicament_id); //enleve les doublons & assemble les qte
+     $liste_medicament_trier = $this->getNbBoiteParMedicament($liste_medicament_trier);
      
     return $liste_medicament_trier ;
   }
@@ -60,10 +57,9 @@ class CommandeAPIController extends Controller
     foreach($liste_medicament as $key => $uneListe){
      //Si un medicament est déjà dans l'ArrayList on l'isole
       if(in_array($uneListe->medicament->id,$doublon)){
-        $search_key = $uneListe->medicament->id;
        //On recherche le medicament déjà present dans la liste trier
           for($i=0 ; $i < count($liste_trier);$i++){
-              if($search_key == $liste_trier[$i]['ID_MEDICAMENT'] ){
+              if($uneListe->medicament->id == $liste_trier[$i]['ID_MEDICAMENT'] ){
               //et on ajoute la QTE du doublon à la valeur déjà presente
                 $liste_trier[$i]['MEDICAMENT_QTE'] += $uneListe->MEDICAMENT_QTE;
               }
@@ -76,17 +72,16 @@ class CommandeAPIController extends Controller
   }
     return $liste_trier;
   }
-  function getNbBoiteParMedoc($liste){
+  function getNbBoiteParMedicament($liste){
     $finalArray = array();
     foreach($liste as $key => $row){
       $type_boite  = boite_medicament::select('BOITE_QTE')->where('id',$row->medicament->ID_TYPE_BOITE)->first();
-      $nbBoite = $this->CalculBoite($type_boite['BOITE_QTE'],$row->MEDICAMENT_QTE);
       // On remplit le tableau final qui contient les bonnes informations au bon endroit//
        $finalArray[$key]['MED_DEPOTLEGAL'] = $row->medicament->MED_DEPOTLEGAL;
-       $finalArray[$key]['MED_NOMCOMMERCIAL'] =$row->medicament->MED_NOMCOMMERCIAL;
+       $finalArray[$key]['MED_NOMCOMMERCIAL'] = $row->medicament->MED_NOMCOMMERCIAL;
        $finalArray[$key]['BOITE_QTE'] = $type_boite['BOITE_QTE'];
-       $finalArray[$key]['NB_BOITE_A_COMMANDER'] = $nbBoite;
-       $finalArray[$key]['MEDICAMENT_QTE'] =  $row->MEDICAMENT_QTE;
+       $finalArray[$key]['NB_BOITE_A_COMMANDER'] = $this->CalculBoite($type_boite['BOITE_QTE'],$row->MEDICAMENT_QTE);
+       $finalArray[$key]['MEDICAMENT_QTE'] = $row->MEDICAMENT_QTE;
     }
     return $finalArray;
   }
@@ -115,7 +110,7 @@ function getApiResult(Request $request){
   //données
   $data = ['result' => $result,
           'praticiens' => praticien::all(),
-            'nom_praticien' => $nom_praticien,];
+          'nom_praticien' => $nom_praticien,];
   
   return view('Api/commandeApi',$data);
 }
@@ -125,7 +120,7 @@ function getApiResult(Request $request){
 function isError($var){
   //determine le type de la variable
   //si array on retoune faux 
-  //sinon on continue de verfier
+  //sinon on continue de verifier
   $type = gettype($var);
   if ($type != "array"){
     $test = $var->getData();

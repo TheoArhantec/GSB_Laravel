@@ -22,9 +22,22 @@ use App\Http\Controllers\rapport_visiteController;
 Route::get('/',"HomeController@homeView")->name("gsb.home");
 Route::get('/home', 'HomeController@homeView')->name('home');
 
+
+/**
+ * Interface de l'API
+ */
+Route::get('/visiteur/api','visiteurController@SelectVisiteur')->name('gsb.visiteur.api');
+Route::post('/visiteur/api/result','visiteurController@getApiResult')->name('gsb.api.visiteurResult');
+
+Route::get('/commande/api','CommandeAPIController@selectCommande')->name('gsb.commande.api');
+Route::post('/commande/api/result','CommandeAPIController@getApiResult')->name('gsb.api.commandeResult');
+
+
+
+
 /**
  * Groupe de route qui permet
- * l'affichage toutes les pages 
+ * l'affichage toutes les pages "statique"
  */
 Route::get('/visiteur', "visiteurController@listeVisiteurAvecLabo")->name("gsb.visiteur")->middleware('auth');
 Route::get('/medicament',"medicamentController@listeMedicaments")->name("gsb.medicament");

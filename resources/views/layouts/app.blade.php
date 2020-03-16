@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/charts/apexcharts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/extensions/tether-theme-arrows.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/extensions/tether.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/extensions/shepherd-theme-default.css') }}">
+    
     
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
     <!-- END: Vendor CSS-->
@@ -30,7 +30,6 @@
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/core/colors/palette-gradient.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/pages/dashboard-analytics.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/pages/card-analytics.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-assets/css/plugins/tour/tour.css') }}">
 
@@ -55,20 +54,15 @@
                         <ul class="nav navbar-nav">
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
-                       
                     </div>
-
                     <ul class="nav navbar-nav float-right">
                     
                         
-                        @guest
+                     @guest
                   <li class="dropdown dropdown-user nav-item"><a href = "{{ route('login')}} class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                         <div class="user-nav d-sm-flex d-none"> Login<span class="user-name text-bold-600"></span></div>
-                            </a>
-                
+                            </a>     
                         </li>
-
-
                         @else
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ Auth::user()->name }}</span><span class="user-status">Visiteurs</span></div>
@@ -106,7 +100,7 @@
     
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="index.html"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Tableau de bord</span></a>
+                <li class=" nav-item open"><a href="index.html"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Tableau de bord</span></a>
                     <ul class="menu-content">
                     @guest
                     <li><a href="{{ route('login') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="eCommerce">Veuillez vous connecter</span></a>
@@ -134,7 +128,12 @@
                 </li>
                
                 @endguest
-                
+                <li class=" navigation-header"><span>API</span></li>
+                <li class=" nav-item"><a href="{{ route('gsb.visiteur.api') }}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">API-Visiteur</span></a>
+                </li>
+                <li class=" nav-item"><a href="{{ route('gsb.commande.api') }}"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">API-Commande</span></a>
+                </li>
+                    
                 
             </ul>
         </div>

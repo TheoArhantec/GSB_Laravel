@@ -19,7 +19,7 @@ class CreateRapportVisiteTable extends Migration
             $table->unsignedBigInteger('ID_PRATICIEN');
             $table->date('RAP_DATE');
             $table->text('RAP_BILAN');
-            $table->string('RAP_MOTIF',20);
+            $table->text('RAP_MOTIF');
             $table->timestamps();
         });
 

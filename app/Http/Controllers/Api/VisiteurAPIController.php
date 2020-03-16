@@ -28,7 +28,7 @@ class VisiteurAPIController extends Controller
         /**
          * Request with a visiteur name 
          */
-         function show(String  $nom)
+        static function show(String  $nom)
         {
             $tableau = array();
             //  Pour un visiteur donné on donne la liste des praticien le concernant 

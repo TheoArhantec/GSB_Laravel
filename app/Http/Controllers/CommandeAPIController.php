@@ -24,12 +24,9 @@ class CommandeAPIController extends Controller
   function show (String $nom){
     //  Requete qui permet de recuperer l'id du praticien a partir de son nom
     $id_Praticien = praticien::where('PRA_NOM', $nom)->first(); 
-
     if ($id_Praticien == null){
       return response()->json(['error'=> 'Le praticien n\'existe pas.'],415);
     }
-
-
     //  Requete pour obtenir la liste des rapports oû le praticien est présent
     $liste_rapport = rapport_visite::select('id')->where('ID_PRATICIEN', '=',$id_Praticien->id)->get();
 
@@ -39,7 +36,6 @@ class CommandeAPIController extends Controller
     foreach($liste_rapport as $key => $uneListe){
         array_push($liste_rapport_id ,$uneListe->id);
     }
-
     if (count($liste_rapport_id) <= 0){
       return response()->json(['error'=> 'Aucun rapport effectué.'],435);
     }
@@ -61,7 +57,6 @@ class CommandeAPIController extends Controller
   public function TrieArray($liste_medicament){
     $liste_trier = array(); //Liste des medicament trier
     $doublon = array();     //Sauvagarde l'id de tout les Medicaments present dans la liste liste_trier
-
     foreach($liste_medicament as $key => $uneListe){
      //Si un medicament est déjà dans l'ArrayList on l'isole
       if(in_array($uneListe->medicament->id,$doublon)){
@@ -79,45 +74,72 @@ class CommandeAPIController extends Controller
       array_push($doublon , $uneListe->medicament->id);
     }
   }
-   
     return $liste_trier;
-  
   }
-
-
   function getNbBoiteParMedoc($liste){
+    $finalArray = array();
     foreach($liste as $key => $row){
-      $nb = $this->getTypeBoite($row->medicament->ID_TYPE_BOITE);
-      //dd($nb);
-      $nbMedoc = $row->MEDICAMENT_QTE;
-
-      $nbBoite = $this->CalculBoite($nb,$nbMedoc);
-     
-
+      $type_boite  = boite_medicament::select('BOITE_QTE')->where('id',$row->medicament->ID_TYPE_BOITE)->first();
+      $nbBoite = $this->CalculBoite($type_boite['BOITE_QTE'],$row->MEDICAMENT_QTE);
+      // On remplit le tableau final qui contient les bonnes informations au bon endroit//
+       $finalArray[$key]['MED_DEPOTLEGAL'] = $row->medicament->MED_DEPOTLEGAL;
+       $finalArray[$key]['MED_NOMCOMMERCIAL'] =$row->medicament->MED_NOMCOMMERCIAL;
+       $finalArray[$key]['BOITE_QTE'] = $type_boite['BOITE_QTE'];
+       $finalArray[$key]['NB_BOITE_A_COMMANDER'] = $nbBoite;
+       $finalArray[$key]['MEDICAMENT_QTE'] =  $row->MEDICAMENT_QTE;
     }
-    // TODO : Implementer le systeme de boite //
-
-    return $liste;
+    return $finalArray;
   }
-
-
-  /**Recupere la taille de la boite (5 10 ou 20 Medicament par boite) */
-  function getTypeBoite($id){
-  $nbParBoite = 0;
-  $type_boite  = boite_medicament::find($id)->select('BOITE_QTE');
-  foreach($type_boite as $obj){
-
-    
-    $nbParBoite = $obj->BOITE_QTE;
-  }
-   
-    return $nbParBoite;
-  }
-
-  function CalculBoite(){
-    return null;
+  //Calcul le nombre de boite qu'il faut commander en fonction
+  // de la taille de la boite et du nombre de medicaments
+  function CalculBoite($nbParBoite,$nbMedoc){
+    $compteur = 0;
+    for($i = 0 ; $i < $nbMedoc;$i +=$nbParBoite){
+      $compteur++;
+    }
+    return $compteur;
   }
   
+  function selectCommande(){
+    $data = ['praticiens' => praticien::all(),];
+    return view('Api/commandeApi',$data  );
+}
+
+function getApiResult(Request $request){
+  $nom_praticien = $request->input('CommandeAPI');
+  $result  = $this->show($nom_praticien);
+  //Verification du resultat
+  if ($this->isError($result) == true){
+    $result =  "Error";
+  }
+  //données
+  $data = ['result' => $result,
+          'praticiens' => praticien::all(),
+            'nom_praticien' => $nom_praticien,];
+  
+  return view('Api/commandeApi',$data);
+}
+  
+
+//Permet de savoir si la varible est un array ou un json 
+function isError($var){
+  //determine le type de la variable
+  //si array on retoune faux 
+  //sinon on continue de verfier
+  $type = gettype($var);
+  if ($type != "array"){
+    $test = $var->getData();
+    //Apres avoir recuperer les données du JSON avec getData()
+    //On test si le nom de la donnée est error
+      foreach ($test as $t){
+        //Si la premiere case est "Error" on retourne TRUE
+        if ($t[0] != "error")
+          return true;
+        }
+      }
+  return false;
+}
+
 
   
 }

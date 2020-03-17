@@ -26,11 +26,11 @@ Route::get('/home', 'HomeController@homeView')->name('home');
 /**
  * Interface de l'API
  */
-Route::get('/visiteur/api','visiteurController@SelectVisiteur')->name('gsb.visiteur.api');
-Route::post('/visiteur/api/result','visiteurController@getApiResult')->name('gsb.api.visiteurResult');
+Route::get('/visiteurs/documentation/api','visiteurController@SelectVisiteur')->name('gsb.visiteur.api');
+Route::post('/visiteurs/documentation/api/result','visiteurController@getApiResult')->name('gsb.api.visiteurResult');
 
-Route::get('/commande/api','CommandeAPIController@selectCommande')->name('gsb.commande.api');
-Route::post('/commande/api/result','CommandeAPIController@getApiResult')->name('gsb.api.commandeResult');
+Route::get('/commandes/documentation/api','CommandeController@selectCommande')->name('gsb.commande.api');
+Route::post('/commandes/documentation/api/result','CommandeController@getApiResult')->name('gsb.api.commandeResult');
 
 
 

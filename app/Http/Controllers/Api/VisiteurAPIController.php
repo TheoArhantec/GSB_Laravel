@@ -15,14 +15,7 @@ class VisiteurAPIController extends Controller
 {
     function index()
     {
-         $data = [
-        'id'=> Auth::user()->id,
-        'name'=> Auth::user()->name,
-        'PRENOM'=> Auth::user()->PRENOM,
-        'DATE_EMBAUCHE'=> Auth::user()->DATE_EMBAUCHE,
-    
-    ];
-    return $data;
+        return response()->json(['error'=> 'Cette requete n\'existe pas !'],500);
     }
     
         /**

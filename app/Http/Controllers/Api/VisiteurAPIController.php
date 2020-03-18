@@ -41,7 +41,7 @@ class VisiteurAPIController extends Controller
             $data = rapport_visite::with(['praticien','user'])->where('ID_USER',$id_Visiteur->id)->get(); 
             //Tableau pour filtrer les doublons
 
-            if ($data == null){
+            if ($data == "[]"){
                 return response()->json(['error'=> 'Aucun rapport trouvé'],415);
               }
             $doublon = array();

@@ -24,7 +24,7 @@ class CommandeAPIController extends Controller
     //  Requete qui permet de recuperer l'id du praticien a partir de son nom
     $id_Praticien = praticien::where('PRA_NOM', $nom)->first(); 
     if ($id_Praticien == null){
-          return response()->json(['error'=> 'Le praticien n\'existe pas.'],415);
+          return response()->json(['error'=> 'Le praticien n\'existe pas.'],434);
     }
     //  Requete pour obtenir la liste des rapports oû le praticien est présent
     $liste_rapport = rapport_visite::select('id')->where('ID_PRATICIEN', '=',$id_Praticien->id)->get();

@@ -79,6 +79,48 @@
  </section>
 
 
+ <section id="card-caps">
+    <div class="row my-3">
+        <div class=" col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <h4 class="card-title">Documentation API</h4>
+                        <span>Pour accéder à l'api il faut passer par l'url :</span>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body bg-dark">
+                            <a class="text-success">/api/commande/{Nom du praticien}</a>
+                                </div></div></div>
+                                <hr>
+                                <span>Les différents messages d'erreurs :</span>
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body bg-dark">
+                                            <span>//Si le praticien demandé n'existe pas :</span><br>
+                                            <a class="text-success">{"error":"Le praticien n'existe pas."} [ code : 434 ] </a>
+                                        </div></div></div>
+
+
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-body bg-dark">
+                                                    <span>//Si le praticien demandé n'a pas redigé de rapport de visite :</span><br>
+                                                    <a class="text-success">{"error":"Aucun rapport effectué."} [ code : 435 ] </a>
+                                                </div></div></div>
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
                         <!-- BEGIN: Theme JS-->
 <script src="{{ asset('/app-assets/js/core/app-menu.js') }}"></script>
 <script src="{{ asset('/app-assets/js/core/app.js') }}"></script>

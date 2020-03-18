@@ -40,6 +40,10 @@ class VisiteurAPIController extends Controller
             //  Requete qui permet de recuperer les informations sur chaque praticien 
             $data = rapport_visite::with(['praticien','user'])->where('ID_USER',$id_Visiteur->id)->get(); 
             //Tableau pour filtrer les doublons
+
+            if ($data == null){
+                return response()->json(['error'=> 'Aucun rapport trouvé'],415);
+              }
             $doublon = array();
             //Compteur du tableau
             $i = 0;

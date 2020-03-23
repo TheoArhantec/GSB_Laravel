@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 
 class CommandeAPIController extends Controller
 {
-  function index(){
+  function index(){  
     return response()->json(['error'=> 'Cette requete n\'existe pas !'],500);
   }
 
@@ -26,8 +26,16 @@ class CommandeAPIController extends Controller
     if ($id_Praticien == null){
           return response()->json(['error'=> 'Le praticien n\'existe pas.'],434);
     }
+
+    //Variable qui permet de trier la prochaine requete entre deux dates (ici de lundi a dimanche dernier)
+    $from = date("Y-m-d",strtotime("last week monday"));
+    $to =date("Y-m-d",strtotime('last week sunday'));
+
     //  Requete pour obtenir la liste des rapports oû le praticien est présent
-    $liste_rapport = rapport_visite::select('id')->where('ID_PRATICIEN', '=',$id_Praticien->id)->get();
+    $liste_rapport = rapport_visite::select('id')
+                    ->where('ID_PRATICIEN', '=',$id_Praticien->id)
+                    ->whereBetween('RAP_DATE',[$from, $to])
+                    ->get();
     //  Boucle Rapide qui recupere l'id de chaque rapport
     $liste_rapport_id = array();
     foreach($liste_rapport as $key => $uneListe){
@@ -92,10 +100,13 @@ class CommandeAPIController extends Controller
     for($i = 0 ; $i < $nbMedoc;$i +=$nbParBoite){
       $compteur++;
     }
+
+   
+
+
     return $compteur;
   }
   
  
-
   
 }

@@ -85,7 +85,6 @@ class CommandeAPIController extends Controller
   }
   static function getNbBoiteParMedicament($liste){
     $finalArray = array();
-    //dd($liste);
     foreach($liste as $key => $row){
       $type_boite  = boite_medicament::select('BOITE_QTE')->where('id',$row->medicament->ID_TYPE_BOITE)->first();
       // On remplit le tableau final qui contient les bonnes informations au bon endroit//

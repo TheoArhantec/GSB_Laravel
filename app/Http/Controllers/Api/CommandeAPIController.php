@@ -9,6 +9,7 @@ use App\boite_medicament;
 use App\User;
 use App\praticien;
 use App\offrir;
+use Response;
 use App\Http\Controllers\Controller;
 
 class CommandeAPIController extends Controller
@@ -55,6 +56,7 @@ class CommandeAPIController extends Controller
      $liste_medicament_trier = CommandeAPIController::TrieArray($liste_medicament_id); //enleve les doublons & assemble les qte
      $liste_medicament_trier = CommandeAPIController::getNbBoiteParMedicament($liste_medicament_trier);
      
+     return \Response::json(['liste_medicament_trier ' => $liste_medicament_trier, 'info_praticien' => praticien::find($id_Praticien) ]);
     return $liste_medicament_trier ;
   }
   
@@ -78,10 +80,12 @@ class CommandeAPIController extends Controller
       array_push($doublon , $uneListe->medicament->id);
     }
   }
+ 
     return $liste_trier;
   }
   static function getNbBoiteParMedicament($liste){
     $finalArray = array();
+    //dd($liste);
     foreach($liste as $key => $row){
       $type_boite  = boite_medicament::select('BOITE_QTE')->where('id',$row->medicament->ID_TYPE_BOITE)->first();
       // On remplit le tableau final qui contient les bonnes informations au bon endroit//

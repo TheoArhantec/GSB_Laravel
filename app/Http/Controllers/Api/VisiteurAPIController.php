@@ -51,8 +51,12 @@ class VisiteurAPIController extends Controller
                 if(!(in_array($object->praticien->PRA_NOM,$doublon))){
                 $tableau[$i]['Nom_Praticien'] =  $object->praticien->PRA_NOM;
                 $tableau[$i]['Prenom_Praticien'] =  $object->praticien->PRA_PRENOM;
+                $tableau[$i]['Praticien_adresse'] =  $object->praticien->PRA_ADRESSE;
+                $tableau[$i]['Praticien_cp'] =  $object->praticien->PRA_CP;
+                $tableau[$i]['Praticien_ville'] =  $object->praticien->PRA_VILLE;
                 $tableau[$i]['Nom_visiteur'] =  $object->User->name;
                 $tableau[$i]['Prenom_visiteur'] = $object->User->PRENOM;
+                
                 array_push($doublon,$object->praticien->PRA_NOM ); // On stock les praticien déjà rentrer dans la $var doublon
                 $i++;
                 }

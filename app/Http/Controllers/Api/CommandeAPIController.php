@@ -108,29 +108,5 @@ class CommandeAPIController extends Controller
   }
   
  
-  function getGoodDate(){
-    //je sais pas trop ce que ça fait
-    $previous_week = strtotime("-1 week +1 day");
-
-    echo $previous_week;
-
-    //faire une date Where sur < a la date d'aujourd'hui
-    //faire un date Where superieur a la semaine dernierre pour eviter de recuperer toute les anciennes dates
-    //en fonction des demandes passées les praticiens sur la semaine passée du lundi 0h au dimanche suivant 23h59. 
-
-    /*
-    SELECT id FROM tbl
-    WHERE date >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY
-    AND date < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY
-    */
-
-
-
-    // where()
-
-
-
-  }
-
   
 }

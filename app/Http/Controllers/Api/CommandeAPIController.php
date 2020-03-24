@@ -56,7 +56,7 @@ class CommandeAPIController extends Controller
      $liste_medicament_trier = CommandeAPIController::TrieArray($liste_medicament_id); //enleve les doublons & assemble les qte
      $liste_medicament_trier = CommandeAPIController::getNbBoiteParMedicament($liste_medicament_trier);
      
-     return \Response::json(['liste_medicament_trier ' => $liste_medicament_trier, 'info_praticien' => praticien::find($id_Praticien) ]);
+    // return \Response::json(['liste_medicament_trier ' => $liste_medicament_trier, 'info_praticien' => praticien::find($id_Praticien) ]);
     return $liste_medicament_trier ;
   }
   

@@ -22,7 +22,7 @@ Route::namespace('Api')->group(function() {
 
 
 
-Route::middleware('auth:web')->get('/user', function (Request $request) {
+Route::middleware('web')->get('/user', function (Request $request) {
     return $request->user();
 });
 

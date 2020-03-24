@@ -12,7 +12,7 @@ class praticien extends Model
 
     public $table ="praticien";
 
-    public $fillable = ['id',
+    protected $fillable = ['id',
                         'PRA_NOM',
                         'PRA_PRENOM',
                         'PRA_ADRESSE',

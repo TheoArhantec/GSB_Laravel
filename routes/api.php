@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 Route::namespace('Api')->group(function() {
     Route::apiResource('visiteur', 'VisiteurAPIController');
     Route::apiResource('commande', 'CommandeAPIController');
+    Route::apiResource('praticien','PraticienAPIController');
 });
 
 

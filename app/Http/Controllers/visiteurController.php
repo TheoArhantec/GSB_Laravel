@@ -79,22 +79,7 @@ class visiteurController extends Controller{
     return view("pages/visiteur")->with(compact('visiteurs',$visiteurs = User::with('labo')->get()));
 }
 
-    public function SelectVisiteur(){
-        $data = ['visiteurs' => user::all(),];
-        return view('Api/visiteurAPI',$data  );
-    }
-
-
-
-    public function getApiResult(Request $request){
-        $nomVisiteur = $request->input('visiteurAPI');
-        $result = VisiteurAPIController::show($nomVisiteur);
-        $data = ['visiteurs' => user::all(),
-                 'result' => $result,
-                 'name'  => $nomVisiteur,];
-
-       return view('Api/visiteurAPI', $data);
-    }
+   
 
 
  

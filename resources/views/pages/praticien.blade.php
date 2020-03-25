@@ -21,21 +21,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach ($praticiens as $key => $praticien)
+			
+			@for ($i = 0; $i < count($praticiens); $i++)
 			<tr>
-				<td>{{ $praticien->PRA_NOM	}}</td>
-				<td>{{ $praticien->PRA_PRENOM }}</td>
-				<td>{{ $praticien->PRA_ADRESSE }}</td>
-				<td>{{ $praticien->PRA_VILLE }}</td>
-				<td>{{ $praticien->type_praticien->TYP_LIBELLE }}</td>
-				<td>{{ $praticien->type_praticien->TYP_LIEU }}</td>
-
-
-
-
-
+				<td>{{ $praticiens[$i]['PRA_NOM'] }}</td>
+				<td>{{ $praticiens[$i]['PRA_PRENOM'] }}</td>
+				<td>{{ $praticiens[$i]['PRA_ADRESSE'] }}</td>
+				<td>{{ $praticiens[$i]['PRA_VILLE'] }}</td>
+				<td>{{ $praticiens[$i]['type_praticien']['TYP_LIBELLE'] }}</td>
+				<td>{{  $praticiens[$i]['type_praticien']['TYP_LIEU']  }}</td>
 			</tr>
-			@endforeach
+			@endfor
+		
+		
 					</tbody>
 	</table>
 </div>
@@ -75,11 +73,12 @@
 								<div class="form-group">
 								<label for="recherchePraticienParType">Recherche Praticien par type</label> 
 									<select class="form-control" id="select" name="select">
-										<option value="MH">Médecin Hospitalier</option>
-										<option value="MV">Médecin de Ville</option>
-										<option value="PH">Pharmacien Hospitalier</option>
-										<option value="PO">Pharmacien Officine</option>
-										<option value="PS">Personnel de santé</option>
+										@foreach($type_praticien as $unType)
+										<option value = " {{$unType->id }}">{{$unType->TYP_LIBELLE}}</option>
+
+
+										@endforeach
+									
 									</select>
 								</div>
 									<button type="submit" value="bouton_valider"class="btn btn-primary">Rechercher</button>

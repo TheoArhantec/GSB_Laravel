@@ -8,7 +8,6 @@ use App\User;
 use App\visiteur;
 use App\rapport_visite;
 
-use Illuminate\Support\Facades\Auth;
 
 
 class VisiteurAPIController extends Controller
@@ -17,7 +16,6 @@ class VisiteurAPIController extends Controller
     {
         return response()->json(['error'=> 'Cette requete n\'existe pas !'],500);
     }
-    
         /**
          * Request with a visiteur name 
          */
@@ -64,5 +62,23 @@ class VisiteurAPIController extends Controller
             //  On retourne le Tableau une fois la boucle terminée
             return $tableau;
         
+        }
+
+/* Function qui permet d'afficher la documentation de l'api */
+        public function SelectVisiteur(){
+            $data = ['visiteurs' => user::all(),];
+            return view('Api/visiteurAPI',$data  );
+        }
+    
+    
+    
+        public function getApiResult(Request $request){
+            $nomVisiteur = $request->input('visiteurAPI');
+            $result = VisiteurAPIController::show($nomVisiteur);
+            $data = ['visiteurs' => user::all(),
+                     'result' => $result,
+                     'name'  => $nomVisiteur,];
+    
+           return view('Api/visiteurAPI', $data);
         }
 }

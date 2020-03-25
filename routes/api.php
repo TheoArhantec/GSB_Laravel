@@ -18,11 +18,12 @@ use Illuminate\Support\Facades\Auth;
 Route::namespace('Api')->group(function() {
     Route::apiResource('visiteur', 'VisiteurAPIController');
     Route::apiResource('commande', 'CommandeAPIController');
+    Route::apiResource('praticien','PraticienAPIController');
 });
 
 
 
-Route::middleware('auth:web')->get('/user', function (Request $request) {
+Route::middleware('web')->get('/user', function (Request $request) {
     return $request->user();
 });
 

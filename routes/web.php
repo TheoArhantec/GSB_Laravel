@@ -24,7 +24,7 @@ Route::get('/home', 'HomeController@homeView')->name('home');
 
 
 
-
+//Route reservé aux personnes connectées
 Route::middleware('auth')->group(function(){
 
     //Page statique 
@@ -66,7 +66,8 @@ Route::post('/visiteurs/documentation/api/result','Api\VisiteurAPIController@get
 Route::get('/commandes/documentation/api','CommandeController@selectCommande')->name('gsb.commande.api');
 Route::post('/commandes/documentation/api/result','CommandeController@getApiResult')->name('gsb.api.commandeResult');
 
-
+route::get('edition_clé/api', 'ApiKeyController@getView')->name('gsb.api.key');
+route::post('edition_clé/api/generate', 'ApiKeyController@createKey')->name('gsb.create.key');
 
 
 Route::get('/deconnexion', function() {

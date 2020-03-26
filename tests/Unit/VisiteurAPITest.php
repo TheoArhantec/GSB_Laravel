@@ -26,19 +26,19 @@ class VisiteurAPITest extends TestCase
     public function testBasicTest()
     {
         $response = $this->get('/api/visiteur');
-        $response->assertStatus(500);
+        $response->assertStatus(404);
     }
 
     public function testPraticienInconnue()
     {
-        $response = $this->get('/api/visiteur/inconnue');
+        $response = $this->get('/api/visiteur/inconnue/lSRmkcOfgr');
         $response->assertStatus(416);
     }
 
 
     public function testPraticienSansRapportDeVisite()
     {
-        $response = $this->get('/api/visiteur/Le1');
+        $response = $this->get('/api/visiteur/Le1/lSRmkcOfgr');
         $response->assertStatus(415);
     }
 }

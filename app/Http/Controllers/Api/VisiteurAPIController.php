@@ -7,7 +7,7 @@ use App\praticien;
 use App\User;
 use App\visiteur;
 use App\rapport_visite;
-
+use App\ApiKey;
 
 
 class VisiteurAPIController extends Controller
@@ -19,8 +19,21 @@ class VisiteurAPIController extends Controller
         /**
          * Request with a visiteur name 
          */
-        static function show(String  $nom)
+        static function show(String  $nom, string $ApiKey)
         {
+
+
+            $liste_valid_key = apiKey::all();
+            $GetApi = false;
+            //test si la clé est valide
+            foreach($liste_valid_key as $key){
+                if ($key->API_KEY == $ApiKey){
+                    $GetApi = true;
+                }
+            }
+            if($GetApi == false){
+                return response()->json(['error'=> 'Clé invalide'],420);
+              }
             $tableau = array();
             //  Pour un visiteur donné on donne la liste des praticien le concernant 
             //  Faut regarder dans le rapport de visite

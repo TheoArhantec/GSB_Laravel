@@ -133,6 +133,8 @@
                 </li>
                 <li class=" nav-item"><a href="{{ route('gsb.commande.api') }}"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">API-Commande</span></a>
                 </li>
+                <li class=" nav-item"><a href="{{ route('gsb.api.key') }}"><i class="feather icon-key"></i><span class="menu-title" data-i18n="Todo">Obtenir une clé API</span></a>
+                </li>
                     
                 
             </ul>

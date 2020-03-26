@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Auth;
 */
 //      /api/visiteur
 Route::namespace('Api')->group(function() {
-    Route::apiResource('visiteur', 'VisiteurAPIController');
-    Route::apiResource('commande', 'CommandeAPIController');
-    Route::apiResource('praticien','PraticienAPIController');
+    //ANCIENNE ROUTE POUR LES APIS
+    //Route::apiResource('visiteur','VisiteurAPIController');
+    //Route::apiResource('commande', 'CommandeAPIController');
+    //Route::apiResource('praticien','PraticienAPIController');
+    Route::get('visiteur/{name}/{ApiKey}','VisiteurAPIController@show');
+    Route::get('commande/{name}/{ApiKey}', 'CommandeAPIController@show');
+    Route::get('praticien/{name}/{ApiKey}','PraticienAPIController@show');
 });
 
 

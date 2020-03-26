@@ -16,19 +16,19 @@ class CommandeAPITest extends TestCase
     public function testBasicTest()
     {
         $response = $this->get('/api/commande');
-        $response->assertStatus(500);
+        $response->assertStatus(404);
     }
 
     public function testPraticienInconnue()
     {
-        $response = $this->get('/api/commande/inconnue');
+        $response = $this->get('/api/commande/inconnue/lSRmkcOfgr');
         $response->assertStatus(434);
     }
 
 
     public function testPraticienSansCommande()
     {
-        $response = $this->get('/api/commande/Roussa');
+        $response = $this->get('/api/commande/Roussa/lSRmkcOfgr');
         $response->assertStatus(434);
     }
 }

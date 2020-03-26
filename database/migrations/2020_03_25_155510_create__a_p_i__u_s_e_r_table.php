@@ -15,7 +15,7 @@ class CreateAPIUSERTable extends Migration
     {
         Schema::create('api_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('API_KEY',1000)->unique();
+            $table->text('API_KEY',1000);
             $table->date('API_DATE_VALIDATION')->nullable();
             $table->timestamps();
         });

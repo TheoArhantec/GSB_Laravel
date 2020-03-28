@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
+                        <h1>PAGE TEMPORAIRE</h1>
                         <h4 class="card-title">Obtenir une clé pour l'Api</h4>
                         <div class ="form-row">
 

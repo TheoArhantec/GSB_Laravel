@@ -60,14 +60,30 @@ Route::middleware('auth')->group(function(){
 /**
  * Interface de l'API
  */
-Route::get('/visiteurs/documentation/api','Api\VisiteurAPIController@SelectVisiteur')->name('gsb.visiteur.api');
-Route::post('/visiteurs/documentation/api/result','Api\VisiteurAPIController@getApiResult')->name('gsb.api.visiteurResult');
+    /**
+     * DOCUMENTATION API
+     */
+    Route::get('/visiteurs/documentation/api','Api\VisiteurAPIController@SelectVisiteur')->name('gsb.visiteur.api');
+    Route::post('/visiteurs/documentation/api/result','Api\VisiteurAPIController@getApiResult')->name('gsb.api.visiteurResult');
 
-Route::get('/commandes/documentation/api','CommandeController@selectCommande')->name('gsb.commande.api');
-Route::post('/commandes/documentation/api/result','CommandeController@getApiResult')->name('gsb.api.commandeResult');
+    Route::get('/commandes/documentation/api','CommandeController@selectCommande')->name('gsb.commande.api');
+    Route::post('/commandes/documentation/api/result','CommandeController@getApiResult')->name('gsb.api.commandeResult');
 
-route::get('edition_clé/api', 'ApiKeyController@getView')->name('gsb.api.key');
-route::post('edition_clé/api/generate', 'ApiKeyController@createKey')->name('gsb.create.key');
+    Route::get('/praticien/documentation/api','Api\praticienAPIController@SelectPraticien')->name('gsb.praticien.api');
+    Route::post('/praticien/documentation/api/result','Api\praticienAPIController@getApiResult')->name('gsb.api.praticienResult');
+
+    /**
+     * ESPACE API
+     */
+    //Affiche la page de création de profil pour l'api |Page de Base de l'interface
+    route::get('Creation_Compte/Api','ApiKeyController@getProfilAPI')->name('gsb.api.account.create');
+    //Permet de créer un nouvel espace API |Se declenche quand l'user valide la création de son compte
+    route::post('Creation_Compte/Api/Create','ApiKeyController@CreateNewAccount')->name('gsb.api.createAccount');
+    //permet d'acceder à l'espace API en question
+    route::post('Espace/Api/Connect','ApiKeyController@getAccount')->name('gsb.api.getAccount');
+    //genere une clé API | Redirige vers la profil de l'user
+    route::post('edition_clé/api/generate', 'ApiKeyController@CreateKeyWithAccount')->name('gsb.create.key');
+    
 
 
 Route::get('/deconnexion', function() {
@@ -77,6 +93,7 @@ Route::get('/deconnexion', function() {
 /**
  * Route qui gere le login/register/logout/...
  */
+//Enleve la possibilité de se Register sur le site
 Auth::routes(['register' => false,
     'verify' => true,
     'reset' => false]);

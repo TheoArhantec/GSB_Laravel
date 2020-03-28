@@ -90,7 +90,7 @@
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body bg-dark">
-                            <a class="text-success">/api/commande/{Nom du praticien}</a>
+                            <a class="text-success">/api/commande/{clé de l'api}/{Nom du praticien}</a>
                                 </div></div></div>
                                 <hr>
                                 <span>Les différents messages d'erreurs :</span>
@@ -108,6 +108,13 @@
                                                     <span>//Si le praticien demandé n'a pas redigé de rapport de visite :</span><br>
                                                     <a class="text-success">{"error":"Aucun rapport effectué."} [ code : 435 ] </a>
                                                 </div></div></div>
+
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="card-body bg-dark">
+                                                            <span>//Si la clé de l'api n'existe pas :</span><br>
+                                                            <a class="text-success">{'error': 'Clé invalide'} [ code : 420 ] </a>
+                                                        </div></div></div>
 
 
 

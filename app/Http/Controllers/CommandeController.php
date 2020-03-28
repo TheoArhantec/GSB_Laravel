@@ -10,6 +10,8 @@ use App\User;
 use App\praticien;
 use App\offrir;
 use App\Http\Controllers\Api\CommandeAPIController;
+use App\Http\Controllers\ApiKeyController;
+
 
 
 class CommandeController extends Controller
@@ -21,7 +23,7 @@ class CommandeController extends Controller
     
     function getApiResult(Request $request){
       $nom_praticien = $request->input('CommandeAPI');
-      $result  = CommandeAPIController::show($nom_praticien);
+      $result  = CommandeAPIController::show($nom_praticien,ApiKeyController::getAdminKey());
       //Verification du resultat
       if ($this->isError($result) == true){
         $result =  "Error";

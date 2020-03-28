@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\praticien;
 use App\apiKey;
+use App\Http\Controllers\ApiKeyController;
 
 class PraticienAPIController extends Controller
 {
@@ -33,6 +34,7 @@ class PraticienAPIController extends Controller
                     return response()->json(['error'=> 'Le praticien n\'existe pas.'],434);
                 }
                //return les informations du praticien 
+               $data = array();
             return $data = PraticienAPIController::setPraticienArray($information_praticien);
                 }else{
                     //si la clé de l'api est invalide
@@ -59,6 +61,22 @@ class PraticienAPIController extends Controller
         return $praticienData;
     }
 
+        /* Function qui permet d'afficher la documentation de l'api */
+        public function SelectPraticien(){
+            $data = ['praticiens' => praticien::all(),];
+            return view('Api/PraticienAPI',$data);
+        }
+
+        public function getApiResult(Request $request){
+            $nomPraticien = $request->input('visiteurAPI');
+            $result = PraticienAPIController::show($nomPraticien,ApiKeyController::getAdminKey());
+            $data = ['praticiens' => praticien::all(),
+                    'result' => $result,
+                    'name'  => $nomPraticien,];
+
+                    
+        return view('Api/PraticienAPI', $data);
+        }
 
 
 }

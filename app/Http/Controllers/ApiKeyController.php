@@ -22,9 +22,9 @@ class ApiKeyController extends Controller
         //On test si le compte possède déjà 3 clé ou non
         //si son nombre de clé est supérieur à trois on retourne un message d'erreur
         if($count == 3 ){
-           // $stringError = "Vous avez déjà atteint le nombre maximale de clés";
+            $stringError = "Vous avez déjà atteint le nombre maximale de clés";
             $data = ApiKeyController::getData($pass);
-            return view("API/ProfilApi",$data);
+            return view("API/ProfilApi",$data)->with('error',$stringError);
         }
 
         $returnKey = "";                //futur clé API
@@ -54,8 +54,8 @@ class ApiKeyController extends Controller
         if ($data == null){
             return back()->withInput();
         } 
-        
-        return view("API/ProfilApi",$data);
+        $stringSucces = "Votre clé à été générée";
+        return view("API/ProfilApi",$data)->with('succes',$stringSucces);
        
         }
 
@@ -63,8 +63,22 @@ class ApiKeyController extends Controller
     //Permet de créer un nouveau compte pour utiliser l'API//
     function CreateNewAccount(Request $request){
         $mail = $request->input('mailAPI');
+        $checkMail = true;
 
-    
+        //Permet de verifier si l'adresse n'est pas déjà prit
+        $allAccount = apiAccount::all();
+        foreach($allAccount as $t){
+            if($t->API_MAIL == $mail){
+                $checkMail = false;
+            }
+
+        }
+        //si l'adresse mail est déjà prit on retourne la page d'acceuil
+        if($checkMail == false){
+            $stringError = "Cette adresse mail est déjà prise ! ";
+            return view("API/ProfilApi")->with('error',$stringError);
+        }
+
         $checkPass = false;
         //Permet de generer un mot de passe et teste si le mot de passe est déjà rentrer dans la BDD
         while ($checkPass == false) {
@@ -136,12 +150,12 @@ class ApiKeyController extends Controller
         }
     //retourne l'id d'un Compte
     //garder l'id permet de laisser l'esapce API actif
-    function getId($data){
+     function getId($data){
         foreach ($data as $d){
             return $d->id;
         }
-
         }
+        
 
     //Recupere les données à return sur chaque Vue
     function getData($pass){
@@ -180,4 +194,79 @@ class ApiKeyController extends Controller
         return true;
         }
 
-}
+    
+    //Fonction qui incremente le nombre d'utilisation d'une clé api
+    //et incremente le nombre d'utilisation sur la table api-account
+    public static function incrementKey($pass){
+        apiKey::where('API_KEY','=',$pass)->increment('API_NB_UTILISATION');
+        $dataUser = apiKey::where('API_KEY','=',$pass)->get();
+        $idAccount = null;
+        foreach($dataUser as $d){
+            $idAccount = $d->ID_ACCOUNT;
+        }
+        if($idAccount != null){
+            $userAccount = apiAccount::where('id','=',$idAccount)->increment('API_NB_UTILISATION');
+        }
+     }
+
+    //Permet d'effacer une clé API 
+    public function DeleteKey($id,$pass){
+       //$pass ne peut pas être défini ici car on efface une donnée quelques lignes plus bas
+        $key = apiKey::where('id',$id)->get();      //On test si la clé existe avant de l'éffacée
+        if($key == "[]"){
+            $data = ApiKeyController::getData($pass);   //Recupere les données nécessaire pour maintenir l'espace Api
+            $stringError = "Action interdite"; 
+            return view("API/ProfilApi",$data)->with('error',$stringError);
+        }else{
+            $deleteVar = apiKey::where('id',$id)->delete();//Efface la clé
+            $data = ApiKeyController::getData($pass);   //Recupere les données nécessaire pour maintenir l'espace Api 
+            $stringSucces = "Votre clé à été efacée";   //Retourne un message pour confimer l'action à l'utilisateur
+            return view("API/ProfilApi",$data)->with('succes',$stringSucces);
+        }
+       
+    }
+    public function resetCounter($id,$pass){
+
+        $dataUser = apiAccount::find($id);        
+        $dataUser->API_NB_UTILISATION = 0;
+        $dataUser->save();
+
+        //On prepare le return sur ma vue
+        $data = ApiKeyController::getData($pass);
+        $stringSucces = " Compteur remit à zero !";
+        return view('API/ProfilApi',$data)->with('succes',$stringSucces);
+        
+    
+    }
+    //Permet de mettre à jour l'adresse mail d'un utilisateur
+    public function updateMail(Request $request){
+        //on recupere les informations du form
+        //TODO FAIRE LA VERIFICATION DES DONNEES//
+        $pass = $request->input('passAccount');
+        $idAccount =$request->input('idAccount');
+        $newMail = $request->input('newMail');
+
+       //debut Updata Mail
+        $dataUser = apiAccount::find($idAccount);        
+        $dataUser->API_MAIL = $newMail;
+        $dataUser->save();
+
+        //On prepare le return sur ma vue
+        $data = ApiKeyController::getData($pass);
+        $stringSucces = " Votre adresse Mail a été mis à jour";
+        return view('API/ProfilApi',$data)->with('sucess',$stringSucces);
+
+    }
+    //Permet d'effacer l'espace API d'un Personne
+    //redirige vers le formulaire de connexion
+    public function delete(Request $request){
+        $id = $request->input('idAccount');
+        $dataKey= apiKey::where('ID_ACCOUNT',$id);
+        $dataKey->delete();
+        $dataUser = apiAccount::find($id);
+        $dataUser->delete();
+        return redirect()->route('login');     
+
+    }
+
+    }

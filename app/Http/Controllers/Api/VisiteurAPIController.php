@@ -8,6 +8,7 @@ use App\User;
 use App\visiteur;
 use App\rapport_visite;
 use App\ApiKey;
+use App\Http\Controllers\ApiKeyController;
 
 
 class VisiteurAPIController extends Controller
@@ -87,11 +88,33 @@ class VisiteurAPIController extends Controller
     
         public function getApiResult(Request $request){
             $nomVisiteur = $request->input('visiteurAPI');
-            $result = VisiteurAPIController::show($nomVisiteur);
+            
+            $result = VisiteurAPIController::show($nomVisiteur,ApiKeyController::getAdminKey());
+            if ($this->isError($result) == true){
+                $result =  "Error";
+              }
             $data = ['visiteurs' => user::all(),
                      'result' => $result,
                      'name'  => $nomVisiteur,];
     
            return view('Api/visiteurAPI', $data);
         }
+
+        function isError($var){
+            //determine le type de la variable
+            //si array on retoune faux 
+            //sinon on continue de verifier
+            $type = gettype($var);
+            if ($type != "array"){
+              $test = $var->getData();
+              //Apres avoir recuperer les données du JSON avec getData()
+              //On test si le nom de la donnée est error
+                foreach ($test as $t){
+                  //Si la premiere case est "Error" on retourne TRUE
+                  if ($t[0] != "error")
+                    return true;
+                  }
+                }
+            return false;
+          }
 }

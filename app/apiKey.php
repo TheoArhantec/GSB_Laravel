@@ -10,6 +10,15 @@ class apiKey extends Model
     protected $primaryKey = "id";
 
     protected $fillable = ['id',
-                        'API_KEY',               //Chaine de caractere aléatoire
-                        'API_DATE_VALIDATION' ]; // pas obligatoire
+                        'API_KEY',  
+                        'ID_ACCOUNT',
+                        'API_NB_UTILISATION',
+                        'API_DATE_CREATION' ]; 
+
+
+
+    public function apiAccount()
+    {
+        return $this->belongsTo('App\apiAccount' ,'ID_ACCOUNT');
+    }
 }

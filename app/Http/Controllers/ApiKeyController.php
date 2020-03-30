@@ -30,7 +30,7 @@ class ApiKeyController extends Controller
         $returnKey = "";                //futur clé API
         $currentDate = date('Y-m-d');   //date_actuelle
         //Toute les clés font 10 de longueur
-
+        //On verifie que la clé générée n'existe pas dans la BDD 
         $checkKey = false;
         while ($checkKey == false) {
             $returnKey = $this->generateRandomString(10);
@@ -112,15 +112,16 @@ class ApiKeyController extends Controller
 
 
     //Verifie si le mot de passe est déjà existant dans la base de données
+    //retourne Faux si le mot de passe est déjà presente dans la BDD
+    //retourne Vrai si le mot de passe est unique
     public function checkPassAccount($pass){
-            $pass = true;
             $allPass = apiAccount::all();
-            foreach($allPass as $Onepass){
-                if($pass == $Onepass->PASS){
-                    $pass = false;
+            foreach($allPass as $onePass){
+                if($pass == $onePass->PASS){
+                    return false;
                 }
             }
-            return $pass;
+            return true;
         }
 
     //Genere une chaine de caracte de façon aléatoire  
@@ -167,15 +168,16 @@ class ApiKeyController extends Controller
         }
 
     //Verifie que la clé n'a jamais été attribué
+    //retourne Faux si la clé est déjà presente dans la BDD
+    //retourne Vrai si la clé est unique
     public function checkPassKey($pass){
-        $pass = true;
-        $allPass = apiKey::all();
-        foreach($allPass as $Onepass){
-            if($pass == $Onepass->API_KEY){
-                $pass = false;
+        $allKey = apiKey::all();
+        foreach($allKey as $key){
+            if($key->API_KEY == $pass){
+                return  false;
             }
         }
-        return $pass;
+        return true;
         }
 
 }

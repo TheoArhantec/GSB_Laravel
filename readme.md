@@ -77,3 +77,9 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 ## Commande pour test
 
 vendor/bin/phpunit
+
+
+## Migrate la partie API de la base de données
+
+php artisan migrate --path=/database/migrations/{folderName}
+

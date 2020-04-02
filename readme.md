@@ -9,13 +9,13 @@
 
 ## Comment installer le projet 
 
-Pour installer le projet vous devez tout d'abord le cloner
+Pour installer le projet vous devez tout d'abord le cloner :
 - git clone "Url du projet"
 
-Maintenant placer vous sur le projet avec la commande cd dans le terminal
+Maintenant placer vous sur le projet avec la commande cd dans le terminal : 
 - cd chemin/du/projet
 
-Ensuite il faut lancer plusieurs commande 
+Ensuite il faut lancer plusieurs commande  :
 ```
 Composer install
 Composer update
@@ -29,10 +29,26 @@ npm run dev
 Ensuite il faut aller à la racine du projet et enlever le .example du .env
 et le configurer (voir fiche E4)
 
-Et enfin lancer la commande pour renegerer une clé
+lancer la commande pour renegerer une clé : 
 ```
 php artisan key:generate
 ```
+Sur MYSQL vous devez créer une nouvelle base de données "gsb"
+
+Une fois fait lancer la commande sur l'invite de commande :
+
+```
+php artisan migrate:fresh
+
+```
+Enfin pour démarrer l'application :
+
+```
+php artisan serve
+
+```
+
+! si une erreur est rencontré au lancement de l'application c'est que le service MYSQL ne doit pas être démarré !
 
 ## Learning Laravel
 

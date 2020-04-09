@@ -225,8 +225,10 @@ class ApiKeyController extends Controller
         }
        
     }
-    public function resetCounter($id,$pass){
 
+    //Remet le nombre d'utilisation des clés à zeoro
+    public function resetCounter($id,$pass){
+        //Update
         $dataUser = apiAccount::find($id);        
         $dataUser->API_NB_UTILISATION = 0;
         $dataUser->save();

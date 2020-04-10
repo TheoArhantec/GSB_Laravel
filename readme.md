@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## Comment installer le projet 
+##  Installer le projet 
 
 Pour installer le projet vous devez tout d'abord le cloner :
 - git clone "Url du projet"
@@ -15,7 +15,7 @@ Pour installer le projet vous devez tout d'abord le cloner :
 Maintenant placer vous sur le projet avec la commande cd dans le terminal : 
 - cd chemin/du/projet
 
-Ensuite il faut lancer plusieurs commande  :
+Ensuite, il faut lancer plusieurs commandes :
 ```
 Composer install
 Composer update
@@ -26,14 +26,14 @@ npm install
 npm run dev
 ```
 
-Ensuite il faut aller à la racine du projet et enlever le .example du .env
+Ensuite, il faut aller à la racine du projet et enlever le .example du .env
 et le configurer (voir fiche E4)
 
-lancer la commande pour renegerer une clé : 
+Lancer la commande pour générer une clé : 
 ```
 php artisan key:generate
 ```
-Sur MYSQL vous devez créer une nouvelle base de données "gsb"
+Sur MYSQL, vous devez créer une nouvelle base de données "gsb"
 
 Une fois fait lancer la commande sur l'invite de commande :
 
@@ -48,7 +48,7 @@ php artisan serve
 
 ```
 
-! si une erreur est rencontré au lancement de l'application c'est que le service MYSQL ne doit pas être démarré !
+! Si une erreur est rencontrée au lancement de l'application, c'est que le service MYSQL ne doit pas être démarré !
 
 ## Learning Laravel
 

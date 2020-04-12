@@ -23,45 +23,74 @@ Route::get('/',"HomeController@homeView")->name("gsb.home");
 Route::get('/home', 'HomeController@homeView')->name('home');
 
 
+
+//Route reservé aux personnes connectées
+Route::middleware('auth')->group(function(){
+
+    //Page statique 
+    Route::get('/visiteur', "visiteurController@listeVisiteurAvecLabo")->name("gsb.visiteur");
+    Route::get('/medicament',"medicamentController@listeMedicaments")->name("gsb.medicament");
+    Route::get('/praticien',"praticienController@listePraticien")-> name("gsb.practicien");
+
+    //permet la modification du profil par un utilisateur
+    Route::get('/profil',"visiteurController@getProfil")->name("gsb.modif");
+    //permet l'edition de nouveau rapport de visite
+    Route::get('/compte_rendus', "rapport_visiteController@listeCompteRendus");
+    Route::get('/compte_rendus/new',"rapport_visiteController@newCompteRendus")->name('gsb.newCompteRendus');
+
+    /**
+    * Route qui recherche les practiciens par type/ville/nom
+    */
+    Route::post('/praticien',"praticienController@praticienParType")->name('gsb.practype');
+    
+    /**
+    *Permet de faire un PDF avec un compte-rendu donné
+    */
+    Route::get('/pdf',"rapport_visiteController@PDF")->name('gsb.pdf');
+    Route::post('/compte_rendus', "rapport_visiteController@createNewCompteRendus")-> name("gsb.newCR");
+
+    /**
+    * Route qui met à jour le profil de l'utilisateur
+    */
+    Route::post('/home',"visiteurController@updateProfil")->name("gsb.update");
+
+
+});
+
 /**
  * Interface de l'API
  */
-Route::get('/visiteurs/documentation/api','visiteurController@SelectVisiteur')->name('gsb.visiteur.api');
-Route::post('/visiteurs/documentation/api/result','visiteurController@getApiResult')->name('gsb.api.visiteurResult');
+    /**
+     * DOCUMENTATION API
+     */
+    Route::get('/visiteurs/documentation/api','Api\VisiteurAPIController@SelectVisiteur')->name('gsb.visiteur.api');
+    Route::post('/visiteurs/documentation/api/result','Api\VisiteurAPIController@getApiResult')->name('gsb.api.visiteurResult');
 
-Route::get('/commandes/documentation/api','CommandeController@selectCommande')->name('gsb.commande.api');
-Route::post('/commandes/documentation/api/result','CommandeController@getApiResult')->name('gsb.api.commandeResult');
+    Route::get('/commandes/documentation/api','CommandeController@selectCommande')->name('gsb.commande.api');
+    Route::post('/commandes/documentation/api/result','CommandeController@getApiResult')->name('gsb.api.commandeResult');
 
+    Route::get('/praticien/documentation/api','Api\praticienAPIController@SelectPraticien')->name('gsb.praticien.api');
+    Route::post('/praticien/documentation/api/result','Api\praticienAPIController@getApiResult')->name('gsb.api.praticienResult');
 
-
-
-/**
- * Groupe de route qui permet
- * l'affichage toutes les pages "statique"
- */
-Route::get('/visiteur', "visiteurController@listeVisiteurAvecLabo")->name("gsb.visiteur")->middleware('auth');
-Route::get('/medicament',"medicamentController@listeMedicaments")->name("gsb.medicament");
-Route::get('/praticien',"praticienController@listePraticien")-> name("gsb.practicien")->middleware('auth');
-Route::get('/profil',"visiteurController@getProfil")->name("gsb.modif")->middleware('auth');
-Route::get('/compte_rendus', "rapport_visiteController@listeCompteRendus")->name("gsb.compte_rendus");
-Route::get('/compte_rendus/new',"rapport_visiteController@newCompteRendus")->name("gsb.newCompteRendus");
-
-/**
- * Route qui recherche les practiciens par type/ville/nom
- */
-Route::post('/praticien',"praticienController@praticienParType")->name('gsb.practype')->middleware('auth');
-
-/**
- * Permet de faire un PDF avec un compte-rendu donné
- */
-Route::get('/pdf',"rapport_visiteController@PDF")->name('gsb.pdf')->middleware('auth');
-Route::post('/compte_rendus', "rapport_visiteController@createNewCompteRendus")-> name("gsb.newCR")->middleware('auth');
-
-/**
- * Route qui met à jour le profil de l'utilisateur
- */
-Route::post('/home',"visiteurController@updateProfil")->name("gsb.update")->middleware('auth');
-
+    /**
+     * ESPACE API
+     */
+    //Affiche la page de création de profil pour l'api |Page de Base de l'interface
+    route::get('Creation_Compte/Api','ApiKeyController@getProfilAPI')->name('gsb.api.account.create');
+    //Permet de créer un nouvel espace API |Se declenche quand l'user valide la création de son compte
+    route::post('Creation_Compte/Api/Create','ApiKeyController@CreateNewAccount')->name('gsb.api.createAccount');
+    //permet d'acceder à l'espace API en question
+    route::post('Espace/Api/Connect','ApiKeyController@getAccount')->name('gsb.api.getAccount');
+    //genere une clé API | Redirige vers la profil de l'user
+    route::post('edition_clé/api/generate', 'ApiKeyController@CreateKeyWithAccount')->name('gsb.create.key');
+    //permet d'affacer une clé presente sur un espace API
+    route::get('Espace/Api/{key}/delete/{pass}','ApiKeyController@DeleteKey')->name('gsb.delete.key');
+    //permet de mettre à jour l'adresse mail d'un compte API
+    route::post('Espace/Api/update_mail','ApiKeyController@updateMail')->name('gsb.api.updateMail');
+    //Permet de remettre à zero le compteur d'utilisation des API  
+    route::get('Espace/Api/update_compteur/{id}/{pass}','ApiKeyController@resetCounter')->name('gsb.api.updateCompteur');
+    //Permet d'affacer l'espace Api d'un utilisateur
+    route::delete('Espace/Api/Delete/','ApiKeyController@delete')->name('gsb.api.deleteAccount');
 
 Route::get('/deconnexion', function() {
     return view('login/deconnection');
@@ -70,6 +99,7 @@ Route::get('/deconnexion', function() {
 /**
  * Route qui gere le login/register/logout/...
  */
+//Enleve la possibilité de se Register sur le site
 Auth::routes(['register' => false,
     'verify' => true,
     'reset' => false]);

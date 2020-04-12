@@ -133,12 +133,18 @@
                 </li>
                 <li class=" nav-item"><a href="{{ route('gsb.commande.api') }}"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">API-Commande</span></a>
                 </li>
+                <li class=" nav-item"><a href="{{ route('gsb.praticien.api') }}"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">API-Praticien</span></a>
+                </li>
+
+
+                <li class=" nav-item"><a href="{{ route('gsb.api.account.create') }}"><i class="feather icon-key"></i><span class="menu-title" data-i18n="Todo">Espace API</span></a>
+                </li>
                     
                 
             </ul>
         </div>
     </div>
-    <!-- END: Main Menu-->
+    <!-- END: Main Menu   -->
 
     <!-- BEGIN: Content-->
     <div class="app-content content">

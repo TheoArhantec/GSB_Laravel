@@ -10,18 +10,22 @@ use App\User;
 use App\praticien;
 use App\offrir;
 use App\Http\Controllers\Api\CommandeAPIController;
+use App\Http\Controllers\ApiKeyController;
+
 
 
 class CommandeController extends Controller
 {
+    //Affiche la docuementation de l'api commande
     function selectCommande(){
         $data = ['praticiens' => praticien::all(),];
         return view('Api/commandeApi',$data  );
     }
-    
+    //Simule l'utilisation de l'api commande 
+    //pour la documentation
     function getApiResult(Request $request){
       $nom_praticien = $request->input('CommandeAPI');
-      $result  = CommandeAPIController::show($nom_praticien);
+      $result  = CommandeAPIController::show($nom_praticien,ApiKeyController::getAdminKey());
       //Verification du resultat
       if ($this->isError($result) == true){
         $result =  "Error";

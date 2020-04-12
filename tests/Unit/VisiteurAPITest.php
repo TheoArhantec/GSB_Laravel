@@ -16,10 +16,29 @@ class VisiteurAPITest extends TestCase
      *
      * @return void
      */
-    public function testBasicTest()
+  /*  public function testBasicTest()
 
     {
         $response = $this->call('GET', '/api/visiteur');
         $this->assertEquals(User::all(), $response->getContent());
+    }*/
+
+    public function testBasicTest()
+    {
+        $response = $this->get('/api/visiteur');
+        $response->assertStatus(404);
+    }
+
+    public function testPraticienInconnue()
+    {
+        $response = $this->get('/api/visiteur/inconnue/lSRmkcOfgr');
+        $response->assertStatus(416);
+    }
+
+
+    public function testPraticienSansRapportDeVisite()
+    {
+        $response = $this->get('/api/visiteur/Le1/lSRmkcOfgr');
+        $response->assertStatus(415);
     }
 }

@@ -12,27 +12,27 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <h4 class="card-title">API - Visiteur</h4>
+                        <h4 class="card-title">API - Praticien</h4>
                         <hr>
-                        <p> Pour un visiteur donné, l'API retourne les praticiens qui le concerne.</p>
+                        <p> Pour un Praticien donné, l'API retourne les informations qui le concerne.</p>
                         <div class="row">
                        <div class = "col-6">
-                        <form method="POST" action="{{ route('gsb.api.visiteurResult') }}" id="add" accept-charset="UTF-8">
+                        <form method="post" action="{{ route('gsb.api.praticienResult') }}" id="add" accept-charset="UTF-8">
                             @csrf
                         <div class="form-group">
                         <label for="recherchePraticienParType">Selection du visiteur</label> 
                             <select class="form-control form-control select2 select2-container select2-container--default select2-container--below" id="select" name="visiteurAPI">
                                @isset($result)
-                                    @foreach ($visiteurs as $visiteur)
-                                        @if($visiteur->name == $name)
-                                            <option selected value="{{ $visiteur->name }}">{{ $visiteur->name }} {{ $visiteur->PRENOM }}</option>
+                                    @foreach ($praticiens as $praticien)
+                                        @if($praticien->name == $name)
+                                            <option selected value="{{ $praticien->PRA_NOM }}">{{ $praticien->PRA_NOM }} {{ $praticien->PRA_PRENOM }}</option>
                                         @else
-                                            <option value="{{ $visiteur->name }}">{{ $visiteur->name }} {{ $visiteur->PRENOM }}</option>
+                                            <option value="{{ $praticien->PRA_NOM }}">{{ $praticien->PRA_NOM }} {{ $praticien->PRA_PRENOM }}</option>
                                         @endif
                                     @endforeach
                                 @else
-                                    @foreach ($visiteurs as $visiteur)
-                                        <option value="{{ $visiteur->name }}">{{ $visiteur->name }} {{ $visiteur->PRENOM }}</option>
+                                    @foreach ($praticiens as $praticien)
+                                        <option value="{{ $praticien->PRA_NOM }}">{{ $praticien->PRA_NOM }} {{ $praticien->PRA_PRENOM }}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -42,7 +42,7 @@
                      </div>
                      <div class = "col-6">
                         @isset($result)
-                            @if ($result == "Error")
+                        @if ($result == "Error")
                         <h1 align="center"> Aucune données </h1>
                        @else
                         <table id ="listeVisiteur" class="table zero-configuration dataTable" style="width:100%">
@@ -50,13 +50,25 @@
                                     <tr>
                                         <th scope="col">Nom</th>
                                         <th scope="col">Prénom</th>
+                                        <th scope="col">Adresse</th>
+                                        <th scope="col">Ville</th>
+                                        <th scope="col">Proffesion</th>
+                                        <th scope="col">Lieu D'excercice</th>
+
+
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for ($i = 0; $i < count($result); $i++)
                                         <tr>
-                                            <td>{{$result[$i]['Nom_Praticien']}}</td>
-                                            <td>{{$result[$i]['Prenom_Praticien']}}</td>
+                                            <td>{{ $result[$i]['PRA_NOM'] }}</td>
+                                            <td>{{ $result[$i]['PRA_PRENOM'] }}</td>
+                                            <td>{{ $result[$i]['PRA_ADRESSE'] }}</td>
+                                            <td>{{ $result[$i]['PRA_VILLE'] }}</td>
+                                            <td>{{ $result[$i]['TYP_LIBELLE'] }}</td>
+                                            <td>{{ $result[$i]['TYP_LIEU']  }}</td>
                                         <tr>
                                     @endfor
                                 </tbody>

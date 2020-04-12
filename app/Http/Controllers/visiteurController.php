@@ -23,7 +23,7 @@ class visiteurController extends Controller{
     
        
     }
-    
+    //Retourne la page profil de la personne connectée
     public function getProfil(){
         return view("pages/profil")->with(compact('UnUsers',$UnUsers =  User::where('id', Auth::user()->id)->get())); 
     }
@@ -75,26 +75,12 @@ class visiteurController extends Controller{
         return redirect() -> route('login');
     }
 
+    //retourne la liste des visiteur avec les laboratoire
     public function listeVisiteurAvecLabo(){
     return view("pages/visiteur")->with(compact('visiteurs',$visiteurs = User::with('labo')->get()));
 }
 
-    public function SelectVisiteur(){
-        $data = ['visiteurs' => user::all(),];
-        return view('Api/visiteurAPI',$data  );
-    }
-
-
-
-    public function getApiResult(Request $request){
-        $nomVisiteur = $request->input('visiteurAPI');
-        $result = VisiteurAPIController::show($nomVisiteur);
-        $data = ['visiteurs' => user::all(),
-                 'result' => $result,
-                 'name'  => $nomVisiteur,];
-
-       return view('Api/visiteurAPI', $data);
-    }
+   
 
 
  

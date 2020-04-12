@@ -4,29 +4,33 @@ namespace App\Http\Controllers;
 use App\praticien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\type_praticien;
 
 class praticienController extends Controller
 {
-
-
-
+    //Retourne la liste des praticiens
     public function listePraticien(){  
-        return view("pages/praticien")->with('praticiens', $praticien = praticien::with('type_praticien')->get());
+        $data = [
+            'praticiens' => praticien::with('type_praticien')->get(),
+            'type_praticien' => type_praticien::all(),
+        ];
+        return view("pages/praticien",$data);
     }
     
+    //Retourne les praticiens en fonction des parametres
+    //@param [Nom du praticien] [Ville du praticien] [Métier du praticien]
     public function praticienParType(Request $request){
-        $texte = $request->input('select');
+        $texte = $request->input('select'); //type praticien
         if ($texte == null){
-            $texte = $request->input('input');
+            $texte = $request->input('input'); //nom ou ville du praticien
+            $praticiens = praticien::with(['type_praticien'])->where('praticien.PRA_NOM', '=' , $texte)->orWhere('praticien.PRA_VILLE', '=' , $texte)->get()->toArray();
+        }else{
+           $praticiens = praticien::with(['type_praticien'])->where('praticien.TYP_CODE', '=' , $texte)->get()->toArray();
         }
-        
-        return view("pages/praticien", ["praticiens" => DB::table('praticien')
-            ->join('type_praticien', 'praticien.typ_code', '=', 'type_praticien.typ_code')
-            ->select('praticien.*', 'type_praticien.*')
-            ->where('type_praticien.typ_code','=', $texte)
-            ->orWhere('praticien.pra_nom','=', $texte)
-            ->orWhere('praticien.pra_ville','=', $texte)
-            ->get()]);
-    }
-    
+        $data = [
+        'praticiens' => $praticiens,
+        'type_praticien' => type_praticien::all(),
+        ];
+        return view("pages/praticien", $data);
+    }    
 }

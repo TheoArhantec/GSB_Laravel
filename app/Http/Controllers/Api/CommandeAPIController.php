@@ -9,48 +9,77 @@ use App\boite_medicament;
 use App\User;
 use App\praticien;
 use App\offrir;
+use App\ApiKey;
+use Response;
 use App\Http\Controllers\Controller;
 
 class CommandeAPIController extends Controller
 {
-  function index(){
+  function index(){  
     return response()->json(['error'=> 'Cette requete n\'existe pas !'],500);
   }
 
 /**
  * Retoune les medicament à commander par praticien
  */
-  static function show (String $nom){
-    //  Requete qui permet de recuperer l'id du praticien a partir de son nom
-    $id_Praticien = praticien::where('PRA_NOM', $nom)->first(); 
-    if ($id_Praticien == null){
-          return response()->json(['error'=> 'Le praticien n\'existe pas.'],415);
+  static function show (String $nom, string $ApiKey){
+
+    $liste_valid_key = apiKey::all();
+    $GetApi = false;
+    //test si la clé est valide
+    foreach($liste_valid_key as $key){
+        if ($key->API_KEY == $ApiKey){
+            $GetApi = true;
+        }
     }
-    //  Requete pour obtenir la liste des rapports oû le praticien est présent
-    $liste_rapport = rapport_visite::select('id')->where('ID_PRATICIEN', '=',$id_Praticien->id)->get();
-    //  Boucle Rapide qui recupere l'id de chaque rapport
-    $liste_rapport_id = array();
-    foreach($liste_rapport as $key => $uneListe){
-        array_push($liste_rapport_id ,$uneListe->id);
+    //si Vrai alors on continue la fonction
+    //sinon on retourne un message d"erreur JSON (420)
+    if($GetApi == false){
+      return response()->json(['error'=> 'Clé invalide'],420);
+    }
+      //  Requete qui permet de recuperer l'id du praticien a partir de son nom
+      $id_Praticien = praticien::where('PRA_NOM', $nom)->first(); 
+      if ($id_Praticien == null){
+            return response()->json(['error'=> 'Le praticien n\'existe pas.'],434);
       }
-    if (count($liste_rapport_id) <= 0){
-      return response()->json(['error'=> 'Aucun rapport effectué.'],435);
+
+      //Variable qui permet de trier la prochaine requete entre deux dates (ici de lundi a dimanche dernier)
+      $from = date("Y-m-d",strtotime("last week monday"));
+      $to =date("Y-m-d",strtotime('last week sunday'));
+
+      //  Requete pour obtenir la liste des rapports oû le praticien est présent
+      $liste_rapport = rapport_visite::select('id')
+                      ->where('ID_PRATICIEN', '=',$id_Praticien->id)
+                      ->whereBetween('RAP_DATE',[$from, $to])
+                      ->get();
+      //  Boucle Rapide qui recupere l'id de chaque rapport
+      $liste_rapport_id = array();
+      foreach($liste_rapport as $key => $uneListe){
+          array_push($liste_rapport_id ,$uneListe->id);
+        }
+      if (count($liste_rapport_id) <= 0){
+        return response()->json(['error'=> 'Aucun rapport effectué.'],435);
+      }
+      // Requete qui rapporte l'id de tout les medicaments et leur quantité sans trier les doublons
+      $liste_medicament_id = offrir::select('ID_MEDICAMENT','MEDICAMENT_QTE')
+      ->whereIn('ID_RAPPORT', $liste_rapport_id)
+      ->with(['medicament'=> function($query) { $query->select('id','MED_DEPOTLEGAL','MED_NOMCOMMERCIAL','ID_TYPE_BOITE');}])
+      ->get();
+
+    
+      //  On appel la fonction TrieArray() pour trier les medicaments
+      $liste_medicament_trier = CommandeAPIController::TrieArray($liste_medicament_id); //enleve les doublons & assemble les qte
+      $liste_medicament_trier = CommandeAPIController::getNbBoiteParMedicament($liste_medicament_trier);
+      
+      // return \Response::json(['liste_medicament_trier ' => $liste_medicament_trier, 'info_praticien' => praticien::find($id_Praticien) ]);
+      return $liste_medicament_trier ;
     }
-    // Requete qui rapporte l'id de tout les medicaments et leur quantité sans trier les doublons
-    $liste_medicament_id = offrir::select('ID_MEDICAMENT','MEDICAMENT_QTE')
-    ->whereIn('ID_RAPPORT', $liste_rapport_id)
-    ->with(['medicament'=> function($query) { $query->select('id','MED_DEPOTLEGAL','MED_NOMCOMMERCIAL','ID_TYPE_BOITE');}])
-    ->get();
-
    
-    //  On appel la fonction TrieArray() pour trier les medicaments
-     $liste_medicament_trier = CommandeAPIController::TrieArray($liste_medicament_id); //enleve les doublons & assemble les qte
-     $liste_medicament_trier = CommandeAPIController::getNbBoiteParMedicament($liste_medicament_trier);
      
-    return $liste_medicament_trier ;
-  }
-  
+   
 
+  
+  //Permet de trier le tableau des medicament 
   static public function TrieArray($liste_medicament){
     $liste_trier = array(); //Liste des medicament trier
     $doublon = array();     //Sauvagarde l'id de tout les Medicaments present dans la liste liste_trier
@@ -70,8 +99,11 @@ class CommandeAPIController extends Controller
       array_push($doublon , $uneListe->medicament->id);
     }
   }
+ 
     return $liste_trier;
   }
+
+  //Return l'array trier avec le nombre de médicaments à commander
   static function getNbBoiteParMedicament($liste){
     $finalArray = array();
     foreach($liste as $key => $row){
@@ -85,6 +117,7 @@ class CommandeAPIController extends Controller
     }
     return $finalArray;
   }
+
   //Calcul le nombre de boite qu'il faut commander en fonction
   // de la taille de la boite et du nombre de medicaments
   static function CalculBoite($nbParBoite,$nbMedoc){
@@ -94,8 +127,5 @@ class CommandeAPIController extends Controller
     }
     return $compteur;
   }
-  
- 
-
   
 }

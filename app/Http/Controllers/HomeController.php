@@ -32,34 +32,13 @@ class HomeController extends Controller
     public function index(){
       
      }
-    
+    //Redirige vers la page d'acceuil
     public function homeView(){
         return view('pages/home')->with('rapports',$rapports = $this->getRapport_Visite());
     }
-
+    //Recupere les rapport de visite du visiteur connecté
     public function getRapport_Visite(){
         return rapport_visite::with('praticien')->where('ID_USER',Auth::user()->id)->get();
     }
 }
 
-    
-
-
-
-
-/*
-
-$var = rapport_visite::with('praticien')->where('ID_USER',Auth::user()->id)->get();
-
-Dans un fichier Blade
-
-@foreach ($var as $autreChose)
-    //Apres la première fleche tu rajotue le nom de la table praticien pour 
-    //préciser que les données viennent de là
-    $autreChose->praticien->champDansLaTableP¨raticien
-
-
-
-@endforeach
-
-*/

@@ -7,19 +7,48 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+##  Installer le projet 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Pour installer le projet vous devez tout d'abord le cloner :
+- git clone "Url du projet"
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Maintenant placer vous sur le projet avec la commande cd dans le terminal : 
+- cd chemin/du/projet
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Ensuite, il faut lancer plusieurs commandes :
+```
+Composer install
+Composer update
+```
+
+```
+npm install
+npm run dev
+```
+
+Ensuite, il faut aller à la racine du projet et enlever le .example du .env
+et le configurer (voir fiche E4)
+
+Lancer la commande pour générer une clé : 
+```
+php artisan key:generate
+```
+Sur MYSQL, vous devez créer une nouvelle base de données "gsb"
+
+Une fois fait lancer la commande sur l'invite de commande :
+
+```
+php artisan migrate:fresh
+
+```
+Enfin pour démarrer l'application :
+
+```
+php artisan serve
+
+```
+
+! Si une erreur est rencontrée au lancement de l'application, c'est que le service MYSQL ne doit pas être démarré !
 
 ## Learning Laravel
 
@@ -72,3 +101,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Commande pour test
+
+vendor/bin/phpunit
+
+
+## Migrate la partie API de la base de données
+
+php artisan migrate --path=/database/migrations/{folderName}
+

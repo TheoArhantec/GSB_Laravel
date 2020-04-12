@@ -223,11 +223,13 @@ class ApiKeyController extends Controller
             $stringSucces = "Votre clé à été efacée";   //Retourne un message pour confimer l'action à l'utilisateur
             return view("API/ProfilApi",$data)->with('succes',$stringSucces);
         }
-       
-     }
-    //Permet de remettre à zero le compteur d'utilisation sur la table API_ACCOUNT
-    public function resetCounter($id,$pass){
+      
+    }
 
+
+    //Remet le nombre d'utilisation des clés à zeoro
+    public function resetCounter($id,$pass){
+        //Update
         $dataUser = apiAccount::find($id);        
         $dataUser->API_NB_UTILISATION = 0;
         $dataUser->save();

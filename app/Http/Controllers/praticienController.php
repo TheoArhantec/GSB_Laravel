@@ -8,6 +8,7 @@ use App\type_praticien;
 
 class praticienController extends Controller
 {
+    //Retourne la liste des praticiens
     public function listePraticien(){  
         $data = [
             'praticiens' => praticien::with('type_praticien')->get(),
@@ -16,6 +17,8 @@ class praticienController extends Controller
         return view("pages/praticien",$data);
     }
     
+    //Retourne les praticiens en fonction des parametres
+    //@param [Nom du praticien] [Ville du praticien] [Métier du praticien]
     public function praticienParType(Request $request){
         $texte = $request->input('select'); //type praticien
         if ($texte == null){

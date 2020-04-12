@@ -18,12 +18,10 @@ class VisiteurAPIController extends Controller
         return response()->json(['error'=> 'Cette requete n\'existe pas !'],500);
     }
         /**
-         * Request with a visiteur name 
+         * API VISITEUR
+         * @Return les praticiens en clés étrangere d'un visiteur
          */
-        static function show(String  $nom, string $ApiKey)
-        {
-
-
+        static function show(String  $nom, string $ApiKey){
             $liste_valid_key = apiKey::all();
             $GetApi = false;
             //test si la clé est valide
@@ -78,14 +76,14 @@ class VisiteurAPIController extends Controller
         
         }
 
-/* Function qui permet d'afficher la documentation de l'api */
+        /* Function qui permet d'afficher la documentation de l'api */
         public function SelectVisiteur(){
             $data = ['visiteurs' => user::all(),];
             return view('Api/visiteurAPI',$data  );
         }
     
     
-    
+        //Simule l'utilisation d'une API pour la documentation
         public function getApiResult(Request $request){
             $nomVisiteur = $request->input('visiteurAPI');
             

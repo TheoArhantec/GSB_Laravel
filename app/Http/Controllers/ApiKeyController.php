@@ -224,7 +224,8 @@ class ApiKeyController extends Controller
             return view("API/ProfilApi",$data)->with('succes',$stringSucces);
         }
        
-    }
+     }
+    //Permet de remettre à zero le compteur d'utilisation sur la table API_ACCOUNT
     public function resetCounter($id,$pass){
 
         $dataUser = apiAccount::find($id);        
@@ -237,7 +238,7 @@ class ApiKeyController extends Controller
         return view('API/ProfilApi',$data)->with('succes',$stringSucces);
         
     
-    }
+        }
     //Permet de mettre à jour l'adresse mail d'un utilisateur
     public function updateMail(Request $request){
         //on recupere les informations du form
@@ -256,7 +257,7 @@ class ApiKeyController extends Controller
         $stringSucces = " Votre adresse Mail a été mis à jour";
         return view('API/ProfilApi',$data)->with('sucess',$stringSucces);
 
-    }
+        }
     //Permet d'effacer l'espace API d'un Personne
     //redirige vers le formulaire de connexion
     public function delete(Request $request){
@@ -267,6 +268,6 @@ class ApiKeyController extends Controller
         $dataUser->delete();
         return redirect()->route('login');     
 
-    }
+        }
 
     }

@@ -13,6 +13,8 @@ use App\offrir;
 class rapport_visiteController extends Controller
 {
  
+    //Permet de transformer une vue HTML en PDF
+    //Ici permet de rendre les informations d'un rapport de visite en PDF
     public function PDF(Request $request){
         $numeroRapport = $request->input('nb');
         $data = ['rapports' => rapport_visite::with('praticien')->where('id',$numeroRapport)->get(),
@@ -21,7 +23,7 @@ class rapport_visiteController extends Controller
         return $pdf->download('Compte-Rendus.pdf');
     }
 
-
+    //Retroune la liste des rapport de visite
     public function listeCompteRendus(){
         return view('pages/compte_rendus')->with('rapports',$rapports = $this->getRapport_Visite());
 }
@@ -38,7 +40,7 @@ class rapport_visiteController extends Controller
     return view("pages/nouveauCompte_rendus" ,$data);
 }
     /**
-     * 
+     * Permet de créer un nouveau rapport de visite
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -113,10 +115,6 @@ class rapport_visiteController extends Controller
                 ]);
             
         }
-        
-
-        
-        
         return redirect()->route('gsb.home');
         
     }

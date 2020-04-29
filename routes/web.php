@@ -83,8 +83,14 @@ Route::middleware('auth')->group(function(){
     route::post('Espace/Api/Connect','ApiKeyController@getAccount')->name('gsb.api.getAccount');
     //genere une clé API | Redirige vers la profil de l'user
     route::post('edition_clé/api/generate', 'ApiKeyController@CreateKeyWithAccount')->name('gsb.create.key');
-    
-
+    //permet d'affacer une clé presente sur un espace API
+    route::get('Espace/Api/{key}/delete/{pass}','ApiKeyController@DeleteKey')->name('gsb.delete.key');
+    //permet de mettre à jour l'adresse mail d'un compte API
+    route::post('Espace/Api/update_mail','ApiKeyController@updateMail')->name('gsb.api.updateMail');
+    //Permet de remettre à zero le compteur d'utilisation des API  
+    route::get('Espace/Api/update_compteur/{id}/{pass}','ApiKeyController@resetCounter')->name('gsb.api.updateCompteur');
+    //Permet d'affacer l'espace Api d'un utilisateur
+    route::delete('Espace/Api/Delete/','ApiKeyController@delete')->name('gsb.api.deleteAccount');
 
 Route::get('/deconnexion', function() {
     return view('login/deconnection');

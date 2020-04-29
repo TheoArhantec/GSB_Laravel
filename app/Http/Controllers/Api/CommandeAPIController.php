@@ -79,7 +79,7 @@ class CommandeAPIController extends Controller
    
 
   
-
+  //Permet de trier le tableau des medicament 
   static public function TrieArray($liste_medicament){
     $liste_trier = array(); //Liste des medicament trier
     $doublon = array();     //Sauvagarde l'id de tout les Medicaments present dans la liste liste_trier
@@ -102,6 +102,8 @@ class CommandeAPIController extends Controller
  
     return $liste_trier;
   }
+
+  //Return l'array trier avec le nombre de médicaments à commander
   static function getNbBoiteParMedicament($liste){
     $finalArray = array();
     foreach($liste as $key => $row){
@@ -115,6 +117,7 @@ class CommandeAPIController extends Controller
     }
     return $finalArray;
   }
+
   //Calcul le nombre de boite qu'il faut commander en fonction
   // de la taille de la boite et du nombre de medicaments
   static function CalculBoite($nbParBoite,$nbMedoc){
@@ -122,13 +125,7 @@ class CommandeAPIController extends Controller
     for($i = 0 ; $i < $nbMedoc;$i +=$nbParBoite){
       $compteur++;
     }
-
-   
-
-
     return $compteur;
   }
-  
- 
   
 }

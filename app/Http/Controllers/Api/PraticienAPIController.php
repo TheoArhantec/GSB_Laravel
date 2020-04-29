@@ -8,6 +8,7 @@ use App\praticien;
 use App\apiKey;
 use App\Http\Controllers\ApiKeyController;
 
+
 class PraticienAPIController extends Controller
 {
 
@@ -18,6 +19,7 @@ class PraticienAPIController extends Controller
     /*Renvoie les informations d'un praticien si le nom est correct*/
     static function show(String $name, String $ApiKey){
         $liste_valid_key = apiKey::all();
+        ApiKeyController::incrementKey($ApiKey);
         $GetApi = false;
         //test si la clé est valide
         foreach($liste_valid_key as $key){
